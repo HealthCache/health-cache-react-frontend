@@ -3,9 +3,9 @@ import 'reset-css';
 import NavbarScroller from './components/Navbar'
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Claims from './components/claims/Claims';
-<<<<<<< HEAD
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import {Profile} from "./components/profile/Profile";
 
 const navigation = {
   brand: { name: 'HealthCache', to: '/' },
@@ -17,25 +17,14 @@ const navigation = {
     { name: 'Discussion Board', to: '/Discussion'}
     
   ]
-=======
-import {Profile} from "./components/profile/Profile";
-
-const navigation = {
-    brand: {name: 'HealthCache', to: '/'},
-    links: [
-        {name: 'Profile', to: '/Profile'},
-        {name: 'File Claim', to: '/FileClaim'},
-        {name: 'Discussion Board', to: '/Discussion'}
-
-    ]
->>>>>>> 24915225820416a82c4d193e4090ecff011e36bf
-};
+}
 
 export default class App extends Component {
     public render() {
         const {brand, links} = navigation;
 
-<<<<<<< HEAD
+
+
     return (
       <div className="App">
         <Router>
@@ -53,21 +42,4 @@ export default class App extends Component {
       </div>
     );
   }
-=======
-        return (
-            <div className="App">
-                <Router>
-                    <NavbarScroller brand={brand} links={links}/>
-                    <Routes>
-                        <Route path='/' element={<Navigate replace to='/login'/>}/>
-                        <Route path="/Profile" element={<Profile/>}/>
-                        <Route path="/FileClaim" element={<Claims/>}/>
-                        <Route path="/Discussion"/>
-                        {/*<Route path='*' element={<NotFound />} />*/}
-                    </Routes>
-                </Router>
-            </div>
-        );
-    }
->>>>>>> 24915225820416a82c4d193e4090ecff011e36bf
 }
