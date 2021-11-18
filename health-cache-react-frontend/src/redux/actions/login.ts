@@ -20,10 +20,31 @@ export interface LoginType{
     password:string;
 }
 
+export interface regUser{
+    username:string,
+    password:string,
+    firstName:string,
+    lastName:string,
+    role:string,
+    email:string,
+    gender:string,
+    dob:string,
+    addressLineOne:string,
+    addressLineTwo:string ,
+    zipcode:string ,
+    city:string ,
+    phoneNo:string ,
+    relationshipStatus:string 
+}
+
+export const registerUser = (user:regUser) => {
+    
+}
+
 export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
         console.log("In the Action Login !!!"+user)
-        const resp = await axios.post<User>(urlApi+"login",user)
+        const resp = await axios.post('http://localhost:8089/api/user/login',user)
         dispatch<LoginUserAction>({
             type: ActionTypes.login,
             payload: resp.data

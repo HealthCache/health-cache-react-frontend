@@ -4,6 +4,9 @@ import NavbarScroller from './components/Navbar'
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import Claims from './components/claims/Claims';
 import {Profile} from "./components/profile/Profile";
+import {Login} from "./components/login/Login"
+import { Register } from './components/register/Register';
+
 
 const navigation = {
     brand: {name: 'HealthCache', to: '/'},
@@ -24,7 +27,8 @@ export default class App extends Component {
                 <Router>
                     <NavbarScroller brand={brand} links={links}/>
                     <Routes>
-                        <Route path='/' element={<Navigate replace to='/login'/>}/>
+                        <Route path='/Login' element={<Login/>}/>
+                        <Route path='/Register' element={<Register/>}/>
                         <Route path="/Profile" element={<Profile/>}/>
                         <Route path="/FileClaim" element={<Claims/>}/>
                         <Route path="/Discussion"/>

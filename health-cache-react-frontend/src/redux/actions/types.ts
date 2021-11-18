@@ -5,6 +5,7 @@ export enum ActionTypes{
     fetchaAllUsers,
     login,
     logout,
+    register,
 
 }
 
