@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/actions";
 
 export const Register: React.FC<any> = () => {
 
@@ -72,7 +73,11 @@ export const Register: React.FC<any> = () => {
         }
     }
 
-    const signup = async () => {
+    const signup = async (event: any) => {
+        event.preventDefault();
+        await dispatch(
+            registerUser({ username, password, firstName, lastName, role, email, gender, dob, addressLineOne, addressLineTwo, zipcode, city, phoneNo, relationshipStatus})
+        );
         
     }
 
