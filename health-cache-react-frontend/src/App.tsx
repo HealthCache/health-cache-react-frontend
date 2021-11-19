@@ -2,10 +2,8 @@ import React, {Component, useEffect, useState} from 'react';
 import 'reset-css';
 import NavbarScroller from './components/Navbar'
 import {BrowserRouter as Router, Navigate, Route, Routes, useNavigate} from 'react-router-dom';
-
 import Claims from './components/claims/Claims';
 import {Profile} from "./components/profile/Profile";
-
 import {Discussions} from "./components/discussion-board/discussion-home/Discussions";
 import {Login} from "./components/Login/Login";
 import {Register} from "./components/Register/Register";
@@ -35,10 +33,6 @@ const navigationNotLogged = {
     ]
 }
 
-interface AppProps {
-
-}
-
 const _App: React.FC<AppProps> = (props) => {
 
     const {brandLogged, linksLogged} = navigationLogged;
@@ -47,6 +41,7 @@ const _App: React.FC<AppProps> = (props) => {
 
 
     return (
+
         <div className="App">
             <Router>
                 {appState.userLogin.user_id === 0 ? <NavbarScroller brand={brand} links={links}/>:
