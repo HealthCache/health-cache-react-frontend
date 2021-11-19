@@ -6,6 +6,10 @@ import ModalHeader from "react-bootstrap/esm/ModalHeader";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import './subject-creation.css';
+import './discussion.css';
+
+
+import { FaPlusSquare } from "react-icons/fa";
 
 
 export const SubjectCreation : React.FC<any> = () => {
@@ -43,12 +47,10 @@ export const SubjectCreation : React.FC<any> = () => {
     }
 
     return (
-        <div>
+        <div className = "create-thread">
             
-        <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-        </Button>
-      <Modal show={show} onHide={handleClose} size="lg" centered>
+            <button type = "button"><FaPlusSquare size = {25} onClick={handleShow}/> Create New Thread</button>
+            <Modal show={show} onHide={handleClose} size="lg" centered>
           <ModalHeader>Create new subject</ModalHeader>
             <Container>
             {/*Modal header*/}
