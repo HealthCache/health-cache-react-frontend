@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { loginUser } from '../../redux/actions';
 
 
 
 export const Login: React.FC<any> = () => {
 
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const appState = useSelector<any, any>((state) => state);
   
@@ -32,6 +34,7 @@ export const Login: React.FC<any> = () => {
         await dispatch(
             loginUser({ username, password })
         );
+        navigate("/Profile");
     }
 
     return (
