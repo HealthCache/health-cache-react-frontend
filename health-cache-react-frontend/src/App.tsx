@@ -6,7 +6,7 @@ import Claims from './components/claims/Claims';
 import {Profile} from "./components/profile/Profile";
 import {Discussions} from "./components/discussion-board/discussion-home/Discussions";
 import {Login} from "./components/Login/Login";
-import {Register} from "./components/Register/Register";
+import {Register} from "./components/register/Register";
 import {logoutUser, User} from "./redux/actions";
 import {StoreState} from "./redux/reducers";
 import {connect, useSelector} from "react-redux";
@@ -34,7 +34,7 @@ const navigationNotLogged = {
   ],
 };
 
-const _App: React.FC<AppProps> = (props) => {
+const _App: React.FC<any> = (props) => {
 
     const {brandLogged, linksLogged} = navigationLogged;
     const {brand, links} = navigationNotLogged;
