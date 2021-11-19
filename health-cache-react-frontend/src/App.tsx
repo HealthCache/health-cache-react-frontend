@@ -52,6 +52,7 @@ const _App: React.FC<AppProps> = (props) => {
                 {appState.userLogin.user_id === 0 ? <NavbarScroller brand={brand} links={links}/>:
                     <NavbarScroller brand={brandLogged} links={linksLogged}/>}
                 <Routes>
+                    <Route path="/" element={<Login/>}/>
                     <Route path="/Login" element={<Login/>}/>
                     <Route path="/Register" element={<Register/>}/>
                     <Route path="/Profile" element={<Profile/>}/>
