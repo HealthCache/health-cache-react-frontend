@@ -7,7 +7,7 @@ import Claims from './components/claims/Claims';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import {Profile} from "./components/profile/Profile";
-import {Discussions} from "./components/discussion-board/discussion-home/Discussions";
+
 
 const navigation = {
   brand: { name: 'HealthCache', to: '/' },
@@ -29,7 +29,8 @@ export default class App extends Component {
 
     return (
       <div className="App">
-        <Router>
+        <NavbarScroller brand={brand} links={links} />
+        {/* <Router>
           <NavbarScroller brand={brand} links={links} />
 
           <Routes>
@@ -40,7 +41,8 @@ export default class App extends Component {
           <Route path="/Discussion" element={<Discussions/>}></Route>
           
           </Routes>
-        </Router>
+        </Router> */}
+        <CommentThread />
       </div>
     );
   }
