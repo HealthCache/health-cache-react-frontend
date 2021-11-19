@@ -58,6 +58,7 @@ export const loginUser = (user:LoginType) => {
                 type: ActionTypes.login,
                 payload: resp.data
             })
+            sessionStorage.setItem("loggedUser", resp.data);
             window.location.assign('/Profile')
         }
         catch(e) {

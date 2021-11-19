@@ -15,7 +15,7 @@ export const Login: React.FC<any> = () => {
 
     useEffect(() => {
         
-            console.log(appState);
+            console.log(appState.userLogin.user_id);
         
     }, [appState]);
 
