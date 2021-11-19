@@ -21,8 +21,6 @@ export interface User{
     city:string ,
     phoneNo:string ,
     relationshipStatus:string ,
-    user_threads?: [];
-    user_claims?: [];
 }
 export interface FetchAllUsersAction{
     type: ActionTypes.fetchaAllUsers;

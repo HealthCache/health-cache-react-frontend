@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {User} from "../../redux/actions";
 import {StoreState} from "../../redux/reducers";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import './Profile.Module.css';
 import {Button} from "reactstrap";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import {useNavigate} from "react-router-dom";
 
 
 interface ProfileProps {
@@ -14,46 +15,35 @@ interface ProfileProps {
 
 
 const _Profile: React.FC<ProfileProps> = (props) => {
-    let tempUser: User = {
-        addressLineOne: "Test Address",
-        addressLineTwo: "Apt# Test",
-        city: "Seattle",
-        dob: "",
-        email: "TestUser@Email.com",
-        firstName: "John",
-        gender: "MALE",
-        lastName: "DOE",
-        password: "123456",
-        phoneNo: "111-111-1111",
-        profpic: "",
-        relationshipStatus: "SINGLE",
-        role: "USER",
-        user_id: 0,
-        username: "JohnDoe",
-        zipcode: "98001"
+    const navigate = useNavigate();
 
-    }
+    const appState = useSelector<any, any>((state) => state);
+
 
     const [editMode, setEditMode] = useState(false)
-    const [username, setUserName] = useState(tempUser.username)
-    const [password, setPassword] = useState(tempUser.password)
-    const [firstName, setFirstName] = useState(tempUser.firstName)
-    const [lastName, setLastName] = useState(tempUser.lastName)
+    const [username, setUserName] = useState(appState.userLogin.username)
+    const [password, setPassword] = useState(appState.userLogin.password)
+    const [firstName, setFirstName] = useState(appState.userLogin.firstName)
+    const [lastName, setLastName] = useState(appState.userLogin.lastName)
     const [dob, setDob] = useState(new Date())
-    const [gender, setGender] = useState(tempUser.gender)
-    const [email, setEmail] = useState(tempUser.email)
-    const [phoneNo, setPhoneNo] = useState(tempUser.phoneNo)
-    const [addressLineOne, setAddressLineOne] = useState(tempUser.addressLineOne)
-    const [addressLineTwo, setAddressLineTwo] = useState(tempUser.addressLineTwo)
-    const [city, setCity] = useState(tempUser.city)
-    const [zipcode, setZipCode] = useState(tempUser.zipcode)
-    const [relationshipStatus, setRelationshipStatus] = useState(tempUser.relationshipStatus)
+    const [gender, setGender] = useState(appState.userLogin.gender)
+    const [email, setEmail] = useState(appState.userLogin.email)
+    const [phoneNo, setPhoneNo] = useState(appState.userLogin.phoneNo)
+    const [addressLineOne, setAddressLineOne] = useState(appState.userLogin.addressLineOne)
+    const [addressLineTwo, setAddressLineTwo] = useState(appState.userLogin.addressLineTwo)
+    const [city, setCity] = useState(appState.userLogin.city)
+    const [zipcode, setZipCode] = useState(appState.userLogin.zipcode)
+    const [relationshipStatus, setRelationshipStatus] = useState(appState.userLogin.relationshipStatus)
 
 
 
 
     useEffect(() => {
-        console.log(tempUser)
+        if (appState.userLogin.user_id === 0){
+            // @ts-ignore
+            navigate("/login",true);
+        }
+        console.log(appState.userLogin)
     }, [editMode]);
 
 
