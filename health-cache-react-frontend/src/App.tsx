@@ -24,14 +24,15 @@ const navigationLogged = {
 }
 
 
-const navigationNotLogged = {
-    brand: {name: 'HealthCache', to: '/'},
-    links: [
-        {name: 'Login', to: '/Login'},
-        {name: 'Register', to: '/Register'},
 
-    ]
-}
+const navigationNotLogged = {
+  brand: { name: "HealthCache", to: "/" },
+  links: [
+    { name: "Login", to: "/Login" },
+    { name: "Register", to: "/Register" },
+    { name: "FileClaim", to: "/FileClaim" },
+  ],
+};
 
 const _App: React.FC<AppProps> = (props) => {
 
