@@ -59,17 +59,14 @@ export const CommentThread : React.FC<any> = () => {
             <div><br></br></div>
         </Row>
         <Row>
-            <Col xs = {2}></Col>
-            <Col xs={8}>hello</Col>
-            <Col xs =  {2}></Col>
+
+        <Col xs = {2}></Col>
+        <Col xs = {10}><Comment/></Col>
+
         </Row>
-{/* 
-        <Row>
-            <Col xs = {2}></Col>
-            <Col xs={8}> <Comment/></Col>
-        </Row> */}
 
         </div>
+       
 
 
     );
