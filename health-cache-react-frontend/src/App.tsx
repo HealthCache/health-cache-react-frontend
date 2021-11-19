@@ -7,11 +7,12 @@ import Claims from './components/claims/Claims';
 import {Profile} from "./components/profile/Profile";
 
 import {Discussions} from "./components/discussion-board/discussion-home/Discussions";
-import {Login} from "./components/login/Login";
-import {Register} from "./components/register/Register";
-import {User} from "./redux/actions";
+import {Login} from "./components/Login/Login";
+import {Register} from "./components/Register/Register";
+import {logoutUser, User} from "./redux/actions";
 import {StoreState} from "./redux/reducers";
 import {connect, useSelector} from "react-redux";
+import { Logout } from './components/Login/Logout';
 
 
 const navigationLogged = {
@@ -19,10 +20,12 @@ const navigationLogged = {
     linksLogged: [
         {name: 'Profile', to: '/Profile'},
         {name: 'File Claim', to: '/FileClaim'},
-        {name: 'Discussion Board', to: '/Discussion'}
-
+        {name: 'Discussion Board', to: '/Discussion'},
+        {name: 'Logout', to: '/Logout'}
     ]
 }
+
+
 const navigationNotLogged = {
     brand: {name: 'HealthCache', to: '/'},
     links: [
@@ -40,7 +43,6 @@ const _App: React.FC<AppProps> = (props) => {
 
     const {brandLogged, linksLogged} = navigationLogged;
     const {brand, links} = navigationNotLogged;
-
     const appState = useSelector<any, any>((state) => state);
 
 
@@ -55,6 +57,7 @@ const _App: React.FC<AppProps> = (props) => {
                     <Route path="/Profile" element={<Profile/>}/>
                     <Route path="/FileClaim" element={<Claims/>}/>
                     <Route path="/Discussion" element={<Discussions/>}/>
+                    <Route path="/Logout" element={<Logout/>}/>
                 </Routes>
             </Router>
         </div>

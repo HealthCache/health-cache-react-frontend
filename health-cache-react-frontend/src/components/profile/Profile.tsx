@@ -39,9 +39,10 @@ const _Profile: React.FC<ProfileProps> = (props) => {
 
 
     useEffect(() => {
+        console.log(appState)
         if (appState.userLogin.user_id === 0){
             // @ts-ignore
-            navigate("/login",true);
+            navigate("/login");
         }
         console.log(appState.userLogin)
     }, [editMode]);
