@@ -12,6 +12,7 @@ import {
   } from "react-bootstrap";
 
 import {NewThread} from "./discussion-view"
+import { SubjectCreation } from "./subject-creation";
 
 export const Discussions: React.FC<any> = () => {
     const [search, setSearch] = useState("");
@@ -27,7 +28,7 @@ export const Discussions: React.FC<any> = () => {
           <>
           <div className="mb-5">
               <Row>
-                  <NewThread />
+                  <SubjectCreation />
               </Row>
           </div>
           <div>
