@@ -25,7 +25,8 @@ const _Profile: React.FC<ProfileProps> = (props) => {
     const [password, setPassword] = useState(appState.userLogin.password)
     const [firstName, setFirstName] = useState(appState.userLogin.firstName)
     const [lastName, setLastName] = useState(appState.userLogin.lastName)
-    const [dob, setDob] = useState(new Date())
+    // @ts-ignore
+    const [dob, setDob] = useState(Date.parse(appState.userLogin.dob))
     const [gender, setGender] = useState(appState.userLogin.gender)
     const [email, setEmail] = useState(appState.userLogin.email)
     const [phoneNo, setPhoneNo] = useState(appState.userLogin.phoneNo)
@@ -97,7 +98,9 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                                         <br/>
                                         <DatePicker className={"form-control"}
                                                     closeOnScroll={true}
+                                                    // @ts-ignore
                                                     selected={dob}
+                                                    // @ts-ignore
                                                     onChange={(date:Date) => setDob(date)}
                                         />
                                     </div>
@@ -181,7 +184,9 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                                         <DatePicker className={"form-control"}
                                                     disabled
                                                     closeOnScroll={true}
+                                                    // @ts-ignore
                                                     selected={dob}
+                                                    // @ts-ignore
                                                     onChange={(date:Date) => setDob(date)}
                                         />
                                     </div>

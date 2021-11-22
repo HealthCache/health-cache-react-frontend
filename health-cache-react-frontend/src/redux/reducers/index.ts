@@ -4,17 +4,23 @@ import { User} from "../actions";
 import { Claim } from "../actions/claims";
 import {loginReducer} from "./login";
 import { ClaimsReducer } from "./claims-reducer";
+import { Subject,Message } from "../actions";
+import { subjectsReducer } from "./subjects";
+import { messagesReducer } from "./message";
 
 
 export interface StoreState{
     users: User[];
     userLogin: User;
     claims: Claim[];
-
+    messages: Message[];
+    subjects: Subject[]; 
 }
 
 export const reducers = combineReducers<StoreState>({
     users: usersReducer,
     userLogin: loginReducer,
     claims: ClaimsReducer,
+    messages: messagesReducer,
+    subjects:subjectsReducer
 });
