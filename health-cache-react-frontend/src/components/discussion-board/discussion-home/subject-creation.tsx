@@ -58,35 +58,24 @@ export const SubjectCreation : React.FC<any> = () => {
             {/*Modal header*/}
             <br/>
             <Row>
-                <Col xs={6} md={8}>
+                <Col xs={8} id="modal">
                 <ReactQuill 
                     onKeyDown = {countCharacters}
                     id="textEditor"
                     placeholder = "Type your discussion here!"
-
                     theme='snow'
                     value={convertedText}
                     onChange={setConvertedText}
                 />
 
                 </Col>
-                <Col xs={0} md={5}></Col>
-                <Col xs={5} md={2}>
-
-                <br/>
-                <br/>
-                </Col>
-                <Col xs={0} md={1}></Col>
-                <Col xs={5} md={3}>
-
+                <Col xs={1} ></Col>
+                <Col xs={3} >
                     <ul>
                         <li>Rule 1</li>
                         <li>Rule 2</li>
                         <li>Rule 3</li>
                     </ul>
-                    <br/>
-                    <br/>
-                    <br/>
                 </Col>
             </Row>
             <ModalFooter>
