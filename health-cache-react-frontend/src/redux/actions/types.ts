@@ -3,7 +3,7 @@ import {LoginUserAction, LogoutUserAction} from "./login";
 import {FetchAllSubjectsAction} from "./subjects"
 import {FetchAllMessagesAction} from "./messages"
 import { createSubjectAction } from "./subjects";
-
+import {fetchRecentSubjects} from "./subjects"
 
 export enum ActionTypes{
     fetchaAllUsers,
@@ -12,8 +12,9 @@ export enum ActionTypes{
     register,
     fetchAllSubjects,
     fetchAllMessages,
-    createSubject
+    createSubject,
+    fetchRecentSubjects
 }
 
-export type Action = FetchAllUsersAction | LoginUserAction | LogoutUserAction | FetchAllSubjectsAction | FetchAllMessagesAction | createSubjectAction
-    ;
+export type Action = FetchAllUsersAction | LoginUserAction | LogoutUserAction | FetchAllSubjectsAction | FetchAllMessagesAction | createSubjectAction | fetchRecentSubjects
+;

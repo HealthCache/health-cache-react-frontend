@@ -6,6 +6,8 @@ export const subjectsReducer = (state: Subject[] = [], action: Action) => {
             return action.payload;
         case ActionTypes.createSubject:
             return action.payload;
+        case ActionTypes.fetchRecentSubjects:
+            return action.payload;
         default:
             return state;
     }

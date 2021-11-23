@@ -15,6 +15,7 @@ import {
 import {NewThread} from "./discussion-view"
 import { SubjectCreation } from "./subject-creation";
 import { fetchAllSubjects } from "../../../redux/actions";
+import {fetchRecentSubjects} from "../../../redux/actions";
 
 export const Discussions: React.FC<any> = () => {
     const [search, setSearch] = useState("");
@@ -37,7 +38,14 @@ export const Discussions: React.FC<any> = () => {
         await dispatch(
             fetchAllSubjects()
         );
-    }
+      }
+
+      const loadRecent = async (event: any) => {
+        await dispatch(
+          fetchRecentSubjects()
+        );
+      }
+
 
       return(
           <>
@@ -52,7 +60,7 @@ export const Discussions: React.FC<any> = () => {
                     <Nav.Item>
                         <Nav.Link href="/yourDiscussions">Your Discussions</Nav.Link>
                     </Nav.Item>
-                    <Nav.Link href="/recentDiscussions">Recent</Nav.Link>
+                    <Nav.Link href="/recent" onClick={loadRecent}>Recent</Nav.Link>
                 </Nav>
                 <Row>
                     

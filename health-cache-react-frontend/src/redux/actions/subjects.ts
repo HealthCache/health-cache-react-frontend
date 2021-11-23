@@ -53,3 +53,17 @@ export const createSubject = (subject:ISubject) => {
 }
 
 
+export interface fetchRecentSubjects {
+    type: ActionTypes.fetchRecentSubjects,
+    payload: Subject[]
+}
+
+export const fetchRecentSubjects = () => {
+    return async (dispatch: Dispatch) => {
+        const resp = await axios.get<Subject[]>(urlApi+'recent')
+        dispatch<fetchRecentSubjects>({
+            type: ActionTypes.fetchRecentSubjects,
+            payload: resp.data
+        })
+    }
+}
