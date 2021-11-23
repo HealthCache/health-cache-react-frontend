@@ -4,6 +4,8 @@ export const subjectsReducer = (state: Subject[] = [], action: Action) => {
     switch (action.type) {
         case ActionTypes.fetchAllSubjects:
             return action.payload;
+        case ActionTypes.createSubject:
+            return action.payload;
         default:
             return state;
     }

@@ -19,6 +19,11 @@ export interface FetchAllSubjectsAction{
     payload: Subject[];
 }
 
+export interface createSubjectAction{
+    type: ActionTypes.createSubject;
+    payload: Subject[];
+}
+
 export const fetchAllSubjects = () => {
     return async (dispatch: Dispatch) => {
         const resp = await axios.get<Subject[]>(urlApi+'getall')
@@ -28,4 +33,23 @@ export const fetchAllSubjects = () => {
         })
     }
 }
+
+export interface ISubject{
+    subject_id:number,
+    content:string,
+    timestamp:string,
+    username:number
+
+}
+
+export const createSubject = (subject:ISubject) => {
+    return async (dispatch: Dispatch) => {
+        const resp = await axios.post<Subject[]>(urlApi+'create',subject)
+        dispatch<createSubjectAction>({
+            type: ActionTypes.createSubject,
+            payload: resp.data
+        })
+    }
+}
+
 

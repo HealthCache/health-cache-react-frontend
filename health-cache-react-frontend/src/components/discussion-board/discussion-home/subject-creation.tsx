@@ -18,7 +18,7 @@ export const SubjectCreation : React.FC<any> = () => {
   const maxCharacterNumber : number = 100 ;
   
 
-  const handleClose = () => {setShow(false); setConvertedText('');};
+  const handleClose = () => {setShow(false); setConvertedText(''); setCharCounter(0);};
   const handleShow = () => setShow(true);
 
   const [show, setShow] = useState(false);
