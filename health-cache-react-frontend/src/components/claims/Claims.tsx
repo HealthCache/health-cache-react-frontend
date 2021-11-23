@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./claims.css";
 import { IClaim } from "./IClaim";
 import {
@@ -13,16 +14,60 @@ import {
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+let curUser = sessionStorage.getItem("loggedUser");
+
+console.log("Current user" + curUser);
+
 const Claims: React.FC<any> = () => {
+  let state = useSelector((state: any) => state);
+
   let [claims, setClaims] = useState([]);
 
-  const fetchClaims = async () => {
+  // We're not gonna use anything after this line
+
+  const [curState, setCurState] = useState(state);
+
+  let fakeState = {
+    userLogin: {
+      addressLineOne: "",
+      addressLineTwo: "",
+      city: "",
+      dob: "",
+      email: "",
+      firstName: "Emanuel",
+      gender: "",
+      lastName: "",
+      password: "",
+      phoneNo: "",
+      profpic: "",
+      relationshipStatus: "",
+      role: "",
+      user_id: 1,
+      username: "",
+      zipcode: "",
+    },
+  };
+  state = fakeState;
+  console.log(state);
+
+  console.log("This is our fake state" + curState);
+
+  //And before this line
+
+  const fetchAllClaims = async () => {
     let res = await axios.get("http://localhost:8089/claim/all");
     setClaims(res.data);
   };
 
+  let userId = 1;
+
+  const fetchClaims = async (userId: number) => {
+    let res = await axios.get(`http://localhost:8089/claim/byuserid/${userId}`);
+    setClaims(res.data);
+  };
+
   useEffect(() => {
-    fetchClaims();
+    fetchClaims(userId);
   }, [claims.length]);
 
   const [show, setShow] = useState(false);
