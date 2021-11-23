@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./claims.css";
 import { IClaim } from "./IClaim";
 import {
@@ -10,41 +11,93 @@ import {
   DropdownButton,
   InputGroup,
   FormControl,
+  Form,
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-const Claims: React.FC<any> = () => {
-  let [claims, setClaims] = useState([]);
+let curUser = sessionStorage.getItem("loggedUser");
 
-  const fetchClaims = async () => {
+console.log("Current user" + curUser);
+
+const Claims: React.FC<any> = () => {
+  let state = useSelector((state: any) => state);
+
+  let [claims, setClaims] = useState([]);
+  let [newClaim, setNewClaim] = useState({
+    userId: 0,
+    claimType: "",
+    description: "",
+  });
+
+  // We're not gonna use anything after this line
+
+  const [curState, setCurState] = useState(state);
+
+  let fakeState = {
+    userLogin: {
+      addressLineOne: "",
+      addressLineTwo: "",
+      city: "",
+      dob: "",
+      email: "",
+      firstName: "Emanuel",
+      gender: "",
+      lastName: "",
+      password: "",
+      phoneNo: "",
+      profpic: "",
+      relationshipStatus: "",
+      role: "",
+      user_id: 1,
+      username: "",
+      zipcode: "",
+    },
+  };
+  state = fakeState;
+  console.log(state);
+
+  console.log("This is our fake state" + curState);
+
+  //And before this line
+
+  const handleSubmit = async () => {
+    console.log("We're submitting form");
+    newClaim.userId = 1;
+
+    console.log("This is our new claim ", newClaim);
+    let res = await axios.post("http://localhost:8089/claim/save", newClaim);
+
+    console.log("RESPONSE FROM AXIOS", res);
+    fetchClaims(newClaim.userId);
+    handleClose();
+  };
+
+  // const newClaim = async () => {
+  //   let res = await axios.post("http://localhost:8089/claim/save");
+  // };
+
+  const fetchAllClaims = async () => {
     let res = await axios.get("http://localhost:8089/claim/all");
     setClaims(res.data);
   };
 
+  let userId = 1;
+
+  const fetchClaims = async (userId: number) => {
+    let res = await axios.get(`http://localhost:8089/claim/byuserid/${userId}`);
+    setClaims(res.data);
+  };
+
   useEffect(() => {
-    fetchClaims();
+    fetchClaims(userId);
   }, [claims.length]);
 
   const [show, setShow] = useState(false);
-  //const [dropval, setDropval] = useState("");
-  // const handleDrop = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   console.log("Changed the value");
-  //   setDropval(event.target.value);
-  // };
-
-  // const handleDrop = (event: React.ChangeEvent<any>) => {
-  //   console.log("Value changed");
-  // };
-
-  // const handleDropSelect = (e: React.SyntheticEvent<unknown>
-  //   ) => {
-  //   console.log("event key", );
-  // };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  console.log(show);
+  let claimType = "";
+  let claimDescription = "";
 
   return (
     <div className="content">
@@ -98,37 +151,56 @@ const Claims: React.FC<any> = () => {
 
       <Modal show={show}>
         <ModalHeader>
-          <ModalTitle>Create New File Claim</ModalTitle>
-          <ModalBody>
-            <InputGroup className="mb-3">
-              <DropdownButton
-                variant="outline-secondary"
-                title="Claim Type"
-                onSelect={(
-                  eventKey: string | null,
-                  e: React.SyntheticEvent<unknown>
-                ) => console.log("Event Key ", eventKey)}
-              >
-                <Dropdown.Item eventKey="surgery">SURGERY</Dropdown.Item>
-                <Dropdown.Item eventKey="medication">MEDICATION</Dropdown.Item>
-                <Dropdown.Item eventKey="elective">ELECTIVE</Dropdown.Item>
-                <Dropdown.Item eventKey="emergency">EMERGENCY</Dropdown.Item>
-                <Dropdown.Item eventKey="other">OTHER</Dropdown.Item>
-              </DropdownButton>
-              {/*<FormControl aria-label="Text input with dropdown button" />
-               */}
-            </InputGroup>
-            <InputGroup>
-              <InputGroup.Text>DESCRIPTION</InputGroup.Text>
-              <FormControl as="textarea" aria-label="With textarea" />
-            </InputGroup>
-          </ModalBody>
-          <ModalFooter>
-            <input className="rev-btn" type="submit" value="Submit" />
-            <button className="rev-btn" type="button" onClick={handleClose}>
-              Cancel
-            </button>
-          </ModalFooter>
+          <Form>
+            <ModalTitle>Create New File Claim</ModalTitle>
+            <ModalBody>
+              <InputGroup className="mb-3">
+                <DropdownButton
+                  variant="outline-secondary"
+                  title="Claim Type"
+                  onSelect={(
+                    eventKey: string | null,
+                    e: React.SyntheticEvent<unknown>
+                  ) => {
+                    console.log("how!");
+                    console.log(eventKey);
+                    if (eventKey != null) {
+                      newClaim.claimType = eventKey;
+                    }
+                  }}
+                >
+                  <Dropdown.Item eventKey="surgery">SURGERY</Dropdown.Item>
+                  <Dropdown.Item eventKey="medication">
+                    MEDICATION
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="elective">ELECTIVE</Dropdown.Item>
+                  <Dropdown.Item eventKey="emergency">EMERGENCY</Dropdown.Item>
+                  <Dropdown.Item eventKey="other">OTHER</Dropdown.Item>
+                </DropdownButton>
+                {/*<FormControl aria-label="Text input with dropdown button" />
+                 */}
+              </InputGroup>
+              <InputGroup>
+                <InputGroup.Text>DESCRIPTION</InputGroup.Text>
+                <FormControl
+                  as="textarea"
+                  aria-label="With textarea"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    newClaim.description = e.target.value;
+                  }}
+                />
+              </InputGroup>
+            </ModalBody>
+            <ModalFooter>
+              <button className="rev-btn" type="button" onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className="rev-btn" type="button" onClick={handleClose}>
+                Cancel
+              </button>
+            </ModalFooter>
+          </Form>
         </ModalHeader>
       </Modal>
     </div>

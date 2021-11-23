@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux";
 import { Action, ActionTypes } from "../actions";
 import { Claim } from "../actions/claims";
+import { User } from "../actions/users";
 
 let claims: Claim[] = [];
 
