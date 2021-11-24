@@ -32,7 +32,7 @@ export const CommentEditor : React.FC<any> = () => {
     return(
         <Container>
             <Row>
-            <Col xs={border}></Col>
+            <Col xs={1}></Col>
             
                 <Col>
                 <Row id="editor-container"><ReactQuill

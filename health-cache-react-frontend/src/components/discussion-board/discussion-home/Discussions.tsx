@@ -19,9 +19,9 @@ import { fetchAllSubjects, fetchAllSubjectsByUser } from "../../../redux/actions
 import {fetchRecentSubjects} from "../../../redux/actions";
 
 export const Discussions: React.FC<any> = () => {
-    const [search, setSearch] = useState("");
+    //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
-    const [url, setUrl] = useState("/recent")
+    //const [url, setUrl] = useState("/recent")
     const appState = useSelector<any, any>((state) => state);
 
     // const history = useHistory();

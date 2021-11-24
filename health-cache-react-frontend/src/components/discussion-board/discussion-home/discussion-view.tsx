@@ -4,12 +4,32 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaPlusSquare } from "react-icons/fa";
+import { fetchById } from '../../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+
 
 export const Discussion:React.FC<any> = ({subject}) => {
+
+    const dispatch = useDispatch();
+    let navigate = useNavigate();
+
 
     useEffect(() => {
         console.log(subject)
     },[]);
+
+    const LoadDiscussion = () => {
+        getByID();
+        navigate("/DiscussionView");
+
+    }
+
+    const getByID = async () => {
+        await dispatch(
+            fetchById(subject.id)
+        );
+    }
 
     return(
         <div className = "subject">
@@ -25,7 +45,7 @@ export const Discussion:React.FC<any> = ({subject}) => {
             <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(subject.timestamp).toDateString()} {new Date(subject.timestamp).toLocaleTimeString()}</p>
             </div>
         <div className = "subject-comment">
-            <button type="button"><FaCommentDots  size = {45}/></button>
+            <button type="button" onClick = {LoadDiscussion}><FaCommentDots  size = {45}/></button>
             <p>{subject.messages.length}</p>
         </div>
 
@@ -42,3 +62,4 @@ export const NewThread:React.FC<any> = (subject:any) =>{
         <div className = "create-thread"><button type = "button"><FaPlusSquare size = {25}/> Create New Thread</button></div>
     );
 }
+

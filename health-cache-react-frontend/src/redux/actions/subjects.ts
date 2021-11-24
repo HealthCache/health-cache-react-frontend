@@ -55,6 +55,11 @@ export interface fetchRecentSubjects {
     payload: Subject[]
 }
 
+export interface fetchByIdAction {
+    type: ActionTypes.fetchById,
+    payload: Subject[]
+}
+
 export const fetchRecentSubjects = () => {
     return async (dispatch: Dispatch) => {
         const resp = await axios.get<Subject[]>(urlApi+'recent')
@@ -81,3 +86,14 @@ export const createSubject = (subject:ISubject) => {
         })
     }
 }
+
+
+export const fetchById = (id:number) =>{
+    return async (dispatch: Dispatch) =>{
+        const resp = await axios.get<Subject[]>(urlApi+'getbyid?id=' +  id);
+        dispatch<fetchByIdAction>({
+            type: ActionTypes.fetchById,
+            payload: resp.data
+        })
+    }
+}   
