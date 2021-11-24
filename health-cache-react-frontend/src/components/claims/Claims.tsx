@@ -65,11 +65,30 @@ const Claims: React.FC<any> = () => {
     newClaim.userId = 1;
 
     console.log("This is our new claim ", newClaim);
-    let res = await axios.post("http://localhost:8089/claim/save", newClaim);
+    try {
+      let req = await fetch('http://184.72.201.95:8081/claim/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newClaim)
+      });
 
-    console.log("RESPONSE FROM AXIOS", res);
+      let res = await req.json();
+
+      console.log("RESPONSE FROM AXIOS", res);
+      fetchClaims(newClaim.userId);
+      handleClose();
+    } catch (e:any) {
+      console.log(e);
+    }
+
+    /*let res = await axios.post("http://184.72.201.95:8081/claim/save", newClaim);
+    console.log(res.data.headers['Content-Type']);*/
+
+    /*console.log("RESPONSE FROM AXIOS", res);
     fetchClaims(newClaim.userId);
-    handleClose();
+    handleClose(); */
   };
 
   // const newClaim = async () => {
@@ -77,14 +96,14 @@ const Claims: React.FC<any> = () => {
   // };
 
   const fetchAllClaims = async () => {
-    let res = await axios.get("http://localhost:8089/claim/all");
+    let res = await axios.get("http://184.72.201.95:8081/claim/all");
     setClaims(res.data);
   };
 
   let userId = 1;
 
   const fetchClaims = async (userId: number) => {
-    let res = await axios.get(`http://localhost:8089/claim/byuserid/${userId}`);
+    let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${userId}`);
     setClaims(res.data);
   };
 
