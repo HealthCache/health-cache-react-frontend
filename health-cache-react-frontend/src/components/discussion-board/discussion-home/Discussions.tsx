@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import {Subject} from '../../../redux/actions/subjects';
 
 // import {useHistory} from "react-router";
 
@@ -12,9 +13,10 @@ import {
     Container,
   } from "react-bootstrap";
 
-import {NewThread} from "./discussion-view"
+import {Discussion, NewThread} from "./discussion-view"
 import { SubjectCreation } from "./subject-creation";
-import { fetchAllSubjects } from "../../../redux/actions";
+import { fetchAllSubjects, fetchAllSubjectsByUser } from "../../../redux/actions";
+import {fetchRecentSubjects} from "../../../redux/actions";
 
 export const Discussions: React.FC<any> = () => {
     const [search, setSearch] = useState("");
@@ -28,17 +30,34 @@ export const Discussions: React.FC<any> = () => {
       //  history.push("/bookmarks");
       //};
 
-      useEffect(()=>{
-        
-        console.log(appState);
+      useEffect(()=>{              
+        loadSubjects();
+      },[]);
+
+      useEffect(()=>{        
+        console.log(appState);      
       },[appState]);
 
-      const loadSubjects = async (event: any) => {
+      const loadSubjects = async () => {
         await dispatch(
             fetchAllSubjects()
         );
-    }
+      }
 
+      const loadRecent = async (event: any) => {
+        await dispatch(
+          fetchRecentSubjects()
+        );
+      }
+
+
+
+    const loadSubjectsByUser = async (event: any) => {
+      await dispatch(
+          fetchAllSubjectsByUser(appState.User.user_id)
+      );
+  }
+    
       return(
           <>
           <div className="mb-5">
@@ -52,10 +71,16 @@ export const Discussions: React.FC<any> = () => {
                     <Nav.Item>
                         <Nav.Link href="/yourDiscussions">Your Discussions</Nav.Link>
                     </Nav.Item>
-                    <Nav.Link href="/recentDiscussions">Recent</Nav.Link>
+                    <Nav.Link href="/recent" onClick={loadRecent}>Recent</Nav.Link>
                 </Nav>
                 <Row>
-                    
+                    {
+                        appState.subjects.map((itm:Subject, idx:number) => {
+                           return(
+                            <Discussion key={idx} subject={itm}/>
+                           );
+                        })
+                    }
                 </Row>
             </Container>
           </div>
