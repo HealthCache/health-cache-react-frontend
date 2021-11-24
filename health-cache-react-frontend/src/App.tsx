@@ -17,6 +17,7 @@ import { logoutUser, User } from "./redux/actions";
 import { StoreState } from "./redux/reducers";
 import { connect, useSelector } from "react-redux";
 import { Logout } from "./components/login/Logout";
+import { CommentThread } from "./components/discussion-board/discussion-home/comments-subject";
 
 const navigationLogged = {
   brandLogged: { name: "HealthCache", to: "/" },
@@ -58,6 +59,7 @@ const _App: React.FC<any> = (props) => {
           <Route path="/FileClaim" element={<Claims />} />
           <Route path="/Discussion" element={<Discussions />} />
           <Route path="/Logout" element={<Logout />} />
+          <Route path = "/DiscussionView" element={<CommentThread />} />
         </Routes>
       </Router>
     </div>
