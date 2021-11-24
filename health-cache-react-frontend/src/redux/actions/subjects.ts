@@ -3,7 +3,7 @@ import { Message } from "./messages";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 
-const urlApi = `http://localhost:2727/subject/` ; //to be set with API host/subject
+const urlApi = `http://localhost:8092/subject/` ; //to be set with API host/subject
 
 export interface Subject{
     subject_id: number
@@ -21,6 +21,11 @@ export interface FetchAllSubjectsAction{
 
 export interface FetchAllSubjectsByUserAction{
     type: ActionTypes.fetchAllSubjectsByUser;
+    payload: Subject[];
+}
+
+export interface createSubjectAction{
+    type: ActionTypes.createSubject;
     payload: Subject[];
 }
 
@@ -55,6 +60,23 @@ export const fetchRecentSubjects = () => {
         const resp = await axios.get<Subject[]>(urlApi+'recent')
         dispatch<fetchRecentSubjects>({
             type: ActionTypes.fetchRecentSubjects,
+            payload: resp.data
+        })
+    }
+}
+
+export interface ISubject{
+    content:string,
+    timestamp:string,
+    user_id:number,
+    username:string
+}
+
+export const createSubject = (subject:ISubject) => {
+    return async (dispatch: Dispatch) => {
+    const resp = await axios.post<Subject[]>(urlApi+'create',subject)
+        dispatch<createSubjectAction>({
+            type: ActionTypes.createSubject,
             payload: resp.data
         })
     }

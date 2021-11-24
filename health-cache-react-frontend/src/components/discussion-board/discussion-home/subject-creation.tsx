@@ -1,6 +1,8 @@
 
 import React, {useState, useEffect} from "react";
 import { Container,Row,Col,Modal,Button, ModalFooter } from "react-bootstrap";
+import { useDispatch, useSelector } from 'react-redux';
+import { createSubject} from "../../../redux/actions";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
@@ -16,7 +18,7 @@ import { FaPlusSquare } from "react-icons/fa";
 
 export const SubjectCreation : React.FC<any> = () => {
   const maxCharacterNumber : number = 100 ;
-  
+  const dispatch = useDispatch();
 
   const handleClose = () => {setShow(false); setConvertedText('');};
   const handleShow = () => setShow(true);
@@ -46,6 +48,31 @@ export const SubjectCreation : React.FC<any> = () => {
         }
 
         console.log(charCounter);
+    }
+
+    const deleteSpaces = (text:string) => {
+        text =text.replaceAll("<p><br></p>",'');
+        text =text.replaceAll("<h1><br></h1>",'');
+        text =text.replaceAll("<h2><br></h2>",'');
+        text =text.replaceAll("<h3><br></h3>",'');
+        text =text.replaceAll("<li><br></li>",'');
+        return text;
+    }
+
+    const createSubjectAsync = async (event: any) => {
+        let date:Date = new Date();
+        setConvertedText(deleteSpaces(convertedText));
+        await dispatch(
+            createSubject({
+              
+              content:convertedText,
+              timestamp:date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay()+' '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+              user_id:46, //This should be the logged in user info
+              username:"Virut"
+          
+          })
+        );
+        handleClose();
     }
 
     return (
@@ -80,7 +107,7 @@ export const SubjectCreation : React.FC<any> = () => {
             </Row>
             <ModalFooter>
             <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-            <Button variant="primary">Publish</Button>
+            <Button variant="primary" onClick={createSubjectAsync}>Publish</Button>
             
             </ModalFooter>
         </Container>
