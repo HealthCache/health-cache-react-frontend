@@ -42,6 +42,8 @@ nav ul li {
 
 .header-region {
     width: 100%;
+    padding-bottom: 4px;
+    padding-top: 4px;
 }
 
 .page-title{
@@ -70,16 +72,17 @@ table tr th, table tr td {
 
 tr:nth-child(even) {
     background-color: var(--rev-lg);
+    color: black;
 }
 
 .rev-btn {
     border: 2px solid var(--rev-orange);
-    border-radius: 20px;
+    border-radius: 20px !important;
     padding: 0em 1em;
     font-family: 'Futura Std Medium', sans-serif;
     color: white;
-    background-color: var(--rev-orange);
-    margin-right: 10%;
+    background-color: var(--rev-orange) !important;
+    margin-right: 3%;
     float: right;
 }
 
@@ -88,6 +91,39 @@ tr:nth-child(even) {
     background-color: white;
 }
 
+.center-text {
+    text-align: center;
+}
+
+.modal-form {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.max-width {
+    width: 500px;
+}
+
 #dropdown-text { 
     margin-left: 10px;
+}
+
+#mod-title{ 
+    margin-left: 90px;
+}
+
+.body-dk {
+    background-color:rgb(14, 12, 12);
+    color:var(--rev-orange);
+}
+
+.body-lt {
+    background-color: white;
+    color: black;
+}
+
+.dm-btn {
+    float: right;
+    margin-right: 10%;
+    border-radius: 20px !important;
 }

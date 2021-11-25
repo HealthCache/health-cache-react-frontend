@@ -16,7 +16,6 @@ import {
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-
 //test user from state: 
 let curUser = sessionStorage.getItem("loggedUser");
 console.log("Current user" + curUser);
@@ -26,22 +25,21 @@ const Claims: React.FC<any> = () => {
   console.log("user_id from state: ", state.userLogin.user_id);
 
   let [claims, setClaims] = useState([]);
-  let [newClaim, setNewClaim] = useState({
+  let [claimType, setClaimType] = useState("");
+  let newClaim = {
     userId: 0,
     claimType: "",
-    description: "",
-  });
-  let [claimType, setClaimType] = useState("");
+    description: ""
+  };
 
-  newClaim.userId = 1;
-
+  // Set the user id to either that from state or default to 1
+  newClaim.userId = state.userLogin.user_id !== 0 ? state.userLogin.user_id: 1;
 
   const handleSubmit = async () => {
+    newClaim.claimType = claimType;
     console.log("submitting new claim: ", newClaim);
     try {
-      axios.defaults.headers.post['Content-Type'] ='application/json';
-      axios.defaults.headers.post['Access-Control-Allow-Origin'] = "*";
-      let res = await axios.post("http://184.72.201.95:8081/claim/save", newClaim);
+      let res = await axios.post("http://184.72.201.95:8089/claim/save", newClaim);
 
       console.log("RESPONSE FROM AXIOS", res);
       fetchClaims();
@@ -50,16 +48,6 @@ const Claims: React.FC<any> = () => {
       console.log(e);
     }
   };
-
-  //Not in use
-  /*
-  const fetchAllClaims = async () => {
-    let res = await axios.get("http://184.72.201.95:8081/claim/all");
-    setClaims(res.data);
-  };
-  */
-
-  //let userId = 1;
 
   const fetchClaims = async () => {
     let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${newClaim.userId}`);
@@ -74,7 +62,7 @@ const Claims: React.FC<any> = () => {
       fetchClaims();
     }
 
-  }, [claimType]); 
+  }, [claimType, newClaim.claimType]); 
 
   const [show, setShow] = useState(false);
 
@@ -83,15 +71,20 @@ const Claims: React.FC<any> = () => {
     newClaim.claimType="";
     setClaimType("");
   }
-  const handleShow = () => setShow(true);
+  const handleShow = () => { setShow(true); }
 
+  const toggleDarkMode = () => {
+    document.body.className = document.body.className === "body-dk"? "body-lt": "body-dk";
+  }
 
   return (
     <div className="content">
       <div className="header-region">
         <h3 className="page-title"><span>My Claims</span></h3>
-        <Button className="rev-btn" variant="outline-dark" onClick={handleShow}>New Claim</Button>
+        <Button className="dm-btn" variant="dark" onClick={toggleDarkMode}>Dark Mode</Button>
+        <Button className="rev-btn" variant="secondary" onClick={handleShow}>New Claim</Button>
       </div>
+      
       <hr />
       <table>
         <tbody>
@@ -116,10 +109,9 @@ const Claims: React.FC<any> = () => {
       </table>
 
       <Modal show={show}>
-        <ModalHeader>
-          <Form>
-            <ModalTitle>Create New Claim</ModalTitle>
-            <ModalBody>
+        <ModalHeader className="center-text max-width"><h2 id="mod-title">Create New Claim</h2></ModalHeader>
+            <ModalBody className="modal-body">
+            <Form className="modal-form">
               <InputGroup className="mb-3">
                 <DropdownButton
                   variant="outline-secondary"
@@ -130,7 +122,6 @@ const Claims: React.FC<any> = () => {
                   ) => {
                     console.log(eventKey);
                     if (eventKey != null) {
-                      newClaim.claimType = eventKey;
                       setClaimType(eventKey);
                     }
                   }}
@@ -143,10 +134,10 @@ const Claims: React.FC<any> = () => {
                   <Dropdown.Item eventKey="EMERGENCY">EMERGENCY</Dropdown.Item>
                   <Dropdown.Item eventKey="OTHER">OTHER</Dropdown.Item>
                 </DropdownButton>
-                 <span id="dropdown-text">{claimType}</span>
+                 <h4 id="dropdown-text">{claimType}</h4>
               </InputGroup>
               <InputGroup>
-                <InputGroup.Text>DESCRIPTION</InputGroup.Text>
+                <InputGroup.Text>Description</InputGroup.Text>
                 <FormControl
                   as="textarea"
                   aria-label="With textarea"
@@ -156,6 +147,7 @@ const Claims: React.FC<any> = () => {
                   }}
                 />
               </InputGroup>
+              </Form>
             </ModalBody>
             <ModalFooter>
               <button className="rev-btn" type="button" onClick={handleSubmit}>
@@ -165,8 +157,8 @@ const Claims: React.FC<any> = () => {
                 Cancel
               </button>
             </ModalFooter>
-          </Form>
-        </ModalHeader>
+          
+        
       </Modal>
     </div>
   );
