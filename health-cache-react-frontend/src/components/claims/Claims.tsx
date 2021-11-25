@@ -40,6 +40,7 @@ const Claims: React.FC<any> = () => {
     console.log("submitting new claim: ", newClaim);
     try {
       axios.defaults.headers.post['Content-Type'] ='application/json';
+      axios.defaults.headers.post['Access-Control-Allow-Origin'] = "*";
       let res = await axios.post("http://184.72.201.95:8081/claim/save", newClaim);
 
       console.log("RESPONSE FROM AXIOS", res);
@@ -88,7 +89,7 @@ const Claims: React.FC<any> = () => {
   return (
     <div className="content">
       <div className="header-region">
-        <h3 className="page-title"><span>My File Claims</span></h3>
+        <h3 className="page-title"><span>My Claims</span></h3>
         <Button className="rev-btn" variant="outline-dark" onClick={handleShow}>New Claim</Button>
       </div>
       <hr />
@@ -117,7 +118,7 @@ const Claims: React.FC<any> = () => {
       <Modal show={show}>
         <ModalHeader>
           <Form>
-            <ModalTitle>Create New File Claim</ModalTitle>
+            <ModalTitle>Create New Claim</ModalTitle>
             <ModalBody>
               <InputGroup className="mb-3">
                 <DropdownButton

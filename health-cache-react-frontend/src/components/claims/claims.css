@@ -87,3 +87,7 @@ tr:nth-child(even) {
     color: var(--rev-orange);
     background-color: white;
 }
+
+#dropdown-text { 
+    margin-left: 10px;
+}
