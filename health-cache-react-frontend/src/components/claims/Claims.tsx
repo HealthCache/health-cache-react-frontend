@@ -12,15 +12,18 @@ import {
   InputGroup,
   FormControl,
   Form,
+  Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-let curUser = sessionStorage.getItem("loggedUser");
 
+//test user from state: 
+let curUser = sessionStorage.getItem("loggedUser");
 console.log("Current user" + curUser);
 
 const Claims: React.FC<any> = () => {
   let state = useSelector((state: any) => state);
+  console.log("user_id from state: ", state.userLogin.user_id);
 
   let [claims, setClaims] = useState([]);
   let [newClaim, setNewClaim] = useState({
@@ -28,106 +31,69 @@ const Claims: React.FC<any> = () => {
     claimType: "",
     description: "",
   });
+  let [claimType, setClaimType] = useState("");
 
-  // We're not gonna use anything after this line
+  newClaim.userId = 1;
 
-  const [curState, setCurState] = useState(state);
-
-  let fakeState = {
-    userLogin: {
-      addressLineOne: "",
-      addressLineTwo: "",
-      city: "",
-      dob: "",
-      email: "",
-      firstName: "Emanuel",
-      gender: "",
-      lastName: "",
-      password: "",
-      phoneNo: "",
-      profpic: "",
-      relationshipStatus: "",
-      role: "",
-      user_id: 1,
-      username: "",
-      zipcode: "",
-    },
-  };
-  state = fakeState;
-  console.log(state);
-
-  console.log("This is our fake state" + curState);
-
-  //And before this line
 
   const handleSubmit = async () => {
-    console.log("We're submitting form");
-    newClaim.userId = 1;
-
-    console.log("This is our new claim ", newClaim);
+    console.log("submitting new claim: ", newClaim);
     try {
-      let req = await fetch('http://184.72.201.95:8081/claim/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newClaim)
-      });
-
-      let res = await req.json();
+      axios.defaults.headers.post['Content-Type'] ='application/json';
+      let res = await axios.post("http://184.72.201.95:8081/claim/save", newClaim);
 
       console.log("RESPONSE FROM AXIOS", res);
-      fetchClaims(newClaim.userId);
+      fetchClaims();
       handleClose();
     } catch (e:any) {
       console.log(e);
     }
-
-    /*let res = await axios.post("http://184.72.201.95:8081/claim/save", newClaim);
-    console.log(res.data.headers['Content-Type']);*/
-
-    /*console.log("RESPONSE FROM AXIOS", res);
-    fetchClaims(newClaim.userId);
-    handleClose(); */
   };
 
-  // const newClaim = async () => {
-  //   let res = await axios.post("http://localhost:8089/claim/save");
-  // };
-
+  //Not in use
+  /*
   const fetchAllClaims = async () => {
     let res = await axios.get("http://184.72.201.95:8081/claim/all");
     setClaims(res.data);
   };
+  */
 
-  let userId = 1;
+  //let userId = 1;
 
-  const fetchClaims = async (userId: number) => {
-    let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${userId}`);
+  const fetchClaims = async () => {
+    let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${newClaim.userId}`);
     setClaims(res.data);
+    console.log("claim: ", res.data);
   };
 
+  
   useEffect(() => {
-    fetchClaims(userId);
-  }, [claims.length]);
+    if (claimType === "")
+    {
+      fetchClaims();
+    }
+
+  }, [claimType]); 
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    newClaim.claimType="";
+    setClaimType("");
+  }
   const handleShow = () => setShow(true);
-  let claimType = "";
-  let claimDescription = "";
+
 
   return (
     <div className="content">
       <div className="header-region">
-        <h2>My File Claims</h2>
-        <button className="rev-btn" type="button" onClick={handleShow}>
-          File New Claim
-        </button>
+        <h3 className="page-title"><span>My File Claims</span></h3>
+        <Button className="rev-btn" variant="outline-dark" onClick={handleShow}>New Claim</Button>
       </div>
       <hr />
       <table>
+        <tbody>
         <tr>
           <th>Claim ID</th>
           <th>Claim Type</th>
@@ -135,12 +101,9 @@ const Claims: React.FC<any> = () => {
           <th>Status</th>
         </tr>
         {claims.map((claim: IClaim) => {
-          console.log("id: " + claim.id);
-          console.log("claimType: " + claim.claimType);
-          console.log("description: " + claim.description);
-          console.log("status: " + claim.status);
+          //console.log("claim: ", claim);
           return (
-            <tr>
+            <tr key={claim.id}>
               <td>{claim.id}</td>
               <td>{claim.claimType}</td>
               <td>{claim.description}</td>
@@ -148,24 +111,7 @@ const Claims: React.FC<any> = () => {
             </tr>
           );
         })}
-        {/*<tr>
-          <td>1</td>
-          <td>Surgery</td>
-          <td>I need to take my face off!</td>
-          <td>APPROVED</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Medication</td>
-          <td>I need cancer meds</td>
-          <td>PENDING</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Other</td>
-          <td>Deny this one, dummy.</td>
-          <td>DENIED</td>
-        </tr>*/}
+        </tbody>
       </table>
 
       <Modal show={show}>
@@ -181,23 +127,22 @@ const Claims: React.FC<any> = () => {
                     eventKey: string | null,
                     e: React.SyntheticEvent<unknown>
                   ) => {
-                    console.log("how!");
                     console.log(eventKey);
                     if (eventKey != null) {
                       newClaim.claimType = eventKey;
+                      setClaimType(eventKey);
                     }
                   }}
                 >
-                  <Dropdown.Item eventKey="surgery">SURGERY</Dropdown.Item>
-                  <Dropdown.Item eventKey="medication">
+                  <Dropdown.Item eventKey="SURGERY">SURGERY</Dropdown.Item>
+                  <Dropdown.Item eventKey="MEDICATION">
                     MEDICATION
                   </Dropdown.Item>
-                  <Dropdown.Item eventKey="elective">ELECTIVE</Dropdown.Item>
-                  <Dropdown.Item eventKey="emergency">EMERGENCY</Dropdown.Item>
-                  <Dropdown.Item eventKey="other">OTHER</Dropdown.Item>
+                  <Dropdown.Item eventKey="ELECTIVE">ELECTIVE</Dropdown.Item>
+                  <Dropdown.Item eventKey="EMERGENCY">EMERGENCY</Dropdown.Item>
+                  <Dropdown.Item eventKey="OTHER">OTHER</Dropdown.Item>
                 </DropdownButton>
-                {/*<FormControl aria-label="Text input with dropdown button" />
-                 */}
+                 <span id="dropdown-text">{claimType}</span>
               </InputGroup>
               <InputGroup>
                 <InputGroup.Text>DESCRIPTION</InputGroup.Text>

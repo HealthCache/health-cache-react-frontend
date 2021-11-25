@@ -41,17 +41,14 @@ nav ul li {
 }
 
 .header-region {
-    /*margin-top: 2em;*/
-    display: flex;
     width: 100%;
-    align-items: center;
-    height: 4em;
 }
 
-.header-region .rev-btn {
-    float: right;
-    margin-left: 75%;
+.page-title{
+    float: left;
+    margin-left: 10%;
 }
+
 
 hr {
     clear: both;
@@ -80,9 +77,10 @@ tr:nth-child(even) {
     border-radius: 20px;
     padding: 0em 1em;
     font-family: 'Futura Std Medium', sans-serif;
-    font-size: 18pt;
     color: white;
     background-color: var(--rev-orange);
+    margin-right: 10%;
+    float: right;
 }
 
 .rev-btn:hover {
