@@ -17,6 +17,7 @@ import {Discussion, NewThread} from "./discussion-view"
 import { SubjectCreation } from "./subject-creation";
 import { fetchAllSubjects, fetchAllSubjectsByUser } from "../../../redux/actions";
 import {fetchRecentSubjects} from "../../../redux/actions";
+import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
     //const [search, setSearch] = useState("");
@@ -30,7 +31,7 @@ export const Discussions: React.FC<any> = () => {
       //  history.push("/bookmarks");
       //};
 
-      useEffect(()=>{              
+      useEffect(()=>{            
         loadSubjects();
       },[]);
 
@@ -75,7 +76,7 @@ export const Discussions: React.FC<any> = () => {
                 </Nav>
                 <Row>
                     {
-                        appState.subjects.map((itm:Subject, idx:number) => {
+                        appState.subjects.map((itm:any, idx:number) => {
                            return(
                             <Discussion key={idx} subject={itm}/>
                            );

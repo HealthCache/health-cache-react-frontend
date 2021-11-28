@@ -6,6 +6,7 @@ import {loginReducer} from "./login";
 import { ClaimsReducer } from "./claims-reducer";
 import { Subject,Message } from "../actions";
 import { subjectsReducer } from "./subjects";
+import { singleSubjectsReducer } from "./individualSubject";
 import { messagesReducer } from "./message";
 
 
@@ -14,7 +15,8 @@ export interface StoreState{
     userLogin: User;
     claims: Claim[];
     messages: Message[];
-    subjects: Subject[]; 
+    subjects: Subject[];
+    singleSubject:Subject[];
 }
 
 export const reducers = combineReducers<StoreState>({
@@ -22,5 +24,6 @@ export const reducers = combineReducers<StoreState>({
     userLogin: loginReducer,
     claims: ClaimsReducer,
     messages: messagesReducer,
-    subjects:subjectsReducer
+    subjects:subjectsReducer,
+    singleSubject:singleSubjectsReducer
 });

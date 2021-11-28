@@ -7,7 +7,7 @@ import {FetchAllMessagesAction} from "./messages"
 import { createSubjectAction } from ".";
 import {fetchRecentSubjects} from "./subjects"
 import { FetchAllSubjectsByUserAction } from "./subjects";
-import { fetchById, fetchByIdAction } from "./subjects";
+import { fetchById, fetchByIdAction, createSubjectAction } from "./subjects";
 
 export enum ActionTypes{
     fetchaAllUsers,

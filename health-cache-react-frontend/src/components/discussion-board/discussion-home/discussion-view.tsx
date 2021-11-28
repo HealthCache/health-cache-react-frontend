@@ -5,24 +5,23 @@ import { FaCommentDots } from "react-icons/fa";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { FaPlusSquare } from "react-icons/fa";
 import { fetchById } from '../../../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+
 
 
 export const Discussion:React.FC<any> = ({subject}) => {
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
+    const appState = useSelector<any, any>((state) => state);
 
 
     useEffect(() => {
-        console.log(subject)
-    },[]);
+    },[appState]);
 
     const LoadDiscussion = () => {
-        getByID();
-        navigate("/DiscussionView");
-
+        getByID().then(()=>{console.log(appState);navigate("/DiscussionView")});
     }
 
     const getByID = async () => {

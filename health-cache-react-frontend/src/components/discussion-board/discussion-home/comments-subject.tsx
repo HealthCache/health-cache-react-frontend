@@ -24,22 +24,8 @@ export const CommentThread : React.FC<any> = () => {
     const dispatch = useDispatch();
     const appState = useSelector<any, any>((state) => state);
 
-
-    useEffect(()=>{              
-        fetchMessages();
-      },[]);
-
       useEffect(()=>{        
-        console.log(appState);      
       },[appState]);
-
-      const fetchMessages = async () => {
-        await dispatch(
-            fetchAllMessages()
-        );
-      }
-
-      
 
     return(
        
@@ -50,15 +36,18 @@ export const CommentThread : React.FC<any> = () => {
         </Row>
 
         <Row>
-                    {
-                        appState.subjects.messages.map((itm:Message, idx:number) => {
-                           return(
-                            <Comment key={idx} subject={itm}/>
-                           );
-                        })
-                    }
-                </Row>
+        {
+            appState.singleSubject.messages.map((itm:any, idx:number) => {
+                return(
+                <Comment key={idx} subject={itm}/>
+                );
+            })
+        }
+        </Row>  
 
+        
+        <Row><CommentEditor/></Row>
+        
         </div>
         </>
 
@@ -66,10 +55,10 @@ export const CommentThread : React.FC<any> = () => {
     );
 }
 
-export const Comment : React.FC<any> = ({message}) => {
+export const Comment : React.FC<any> = (message:any) => {
 
     useEffect(()=> {
-        console.log(message)
+        
     },[]);
 
     return(
@@ -77,13 +66,13 @@ export const Comment : React.FC<any> = ({message}) => {
         <div className="subject-container">
             <div className="subject-profile">
                 <img className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="50" height="50"/>
-                <h4 className="subject-username">User: {message.username.username}</h4>
+                <h4 className="subject-username">User: {message.subject.username.username}</h4>
             </div>
 
             <div className="subject-content">
-                <p>{message.content}</p>
+                <p>{message.subject.content}</p>
             </div>
-            <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(message.timestamp).toDateString()} </p>
+            <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(message.subject.timestamp).toDateString()} </p>
             </div>
         </div>
     );
@@ -105,10 +94,10 @@ const appState = useSelector<any, any>((state) => state);
     <Col xs={1}>
             <img className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="80" height="80"/>
     </Col>
-    <Col xs={6}><h2>appState.subject.username.username</h2>
-    <Row>appState.subject.content</Row>
+    <Col xs={6}><h2>{appState.singleSubject.username.username}</h2>
+    <Row>{appState.singleSubject.content}</Row>
     </Col>
-    <Col xs={4}> <FaCalendarAlt/> appState.subject.timestamp
+    <Col xs={4}> <FaCalendarAlt/> {appState.singleSubject.timestamp}
     
     <Row>
         <Col xs = {3}>
@@ -121,7 +110,7 @@ const appState = useSelector<any, any>((state) => state);
            <button type = "button" className = "like"> <FaRegThumbsUp size = {20}/></button>
             <Row>
                 <Col xs = {2}></Col>
-                <Col xs = {2}>appState.subject.votes.length</Col>
+                <Col xs = {2}>{appState.singleSubject.votes.length}</Col>
             </Row>
         </Col>
     </Row>
@@ -135,18 +124,12 @@ const appState = useSelector<any, any>((state) => state);
     </Row>
 
 
-
-    <Row>
-    <Col xs = {2}></Col>
-    <Col xs = {10}><Comment/></Col>
-    </Row>
     <Row>
         <div><br></br></div>
     </Row>
    <Row>
         <div><br></br></div>
     </Row>
-    <Row><CommentEditor/></Row>
     </div>
     );
 }
