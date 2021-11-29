@@ -28,7 +28,7 @@ nav {
     display: block;
     width: 100%;
     height: 4em;
-    background-color: var(--rev-dg) !important;
+    background-color: black;
 }
 
 nav ul{
@@ -87,7 +87,7 @@ tr:nth-child(even) {
 }
 
 .rev-btn:hover {
-    color: var(--rev-orange);
+    
     background-color: white;
 }
 

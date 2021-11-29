@@ -40,9 +40,9 @@ export const Login: React.FC<any> = () => {
     return (
         <div className="container pt-5">
 
-            <div className="container bg-white shadow p-3 mb-5 bg-body rounded">
+            <div className="container shadow p-3 mb-5 bg-secondary3 text-black rounded ">
 
-                <h1 className="fw-light">Login to your account</h1>
+                <h1 className="fw-light text-primary2">Login to your account</h1>
                 <hr />
                 <form>
 
@@ -57,7 +57,7 @@ export const Login: React.FC<any> = () => {
                     </div>
 
                     <hr />
-                    <button type="submit" className="btn btn-primary btn-block" onClick={login}>Login</button>
+                    <button type="submit" className="btn btn-primary text-primary2 btn-block " onClick={login}>Login</button>
 
                 </form>
             </div>
