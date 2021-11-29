@@ -38,14 +38,14 @@ const _Profile: React.FC<ProfileProps> = (props) => {
     const [city, setCity] = useState(appState.userLogin.city)
     const [zipcode, setZipCode] = useState(appState.userLogin.zipcode)
     const [relationshipStatus, setRelationshipStatus] = useState(appState.userLogin.relationshipStatus)
-    const [profpic, setProfpic] = useState(appState.userLogin.profpic)
+    const [profilePic, setProfilePic] = useState(appState.userLogin.profilePic)
 
     const renderPic = (): string => {
-        console.log(profpic);
-        if (profpic === null || profpic === "") {
+        console.log(profilePic);
+        if (profilePic === null || profilePic === "") {
             return "https://projecttrackerbucket.s3.us-west-1.amazonaws.com/default-profile-pic.jpg"; //replace URLs with HealthCache S3 url
         } else {
-            return "https://projecttrackerbucket.s3.us-west-1.amazonaws.com/" + profpic;
+            return "https://projecttrackerbucket.s3.us-west-1.amazonaws.com/" + profilePic;
         }
     }
 
@@ -67,22 +67,12 @@ const _Profile: React.FC<ProfileProps> = (props) => {
         data.append("file", e.target.files[0]);
 
         //-----Replace URL with the EC2 HealthCache URL
+        //const apiRespose = await axios.post("http://localhost:8083/api/file/upload", data);
         //const apiRespose = await axios.post("http://ec2-3-140-252-233.us-east-2.compute.amazonaws.com:9090/file/upload", data);
         const apiRespose = await axios.post("/file/upload", data);
 
-        const noSpacesString = apiRespose.data.replace(/ /g, '').split(':')[1];
-        console.log(noSpacesString);
-        setProfpic(noSpacesString);
-
-        /*apiRespose.text().then(function (text) {
-        // do something with the text response 
-        var noSpacesString= text.replace(/ /g,'');
-        const profPicName = noSpacesString.split(':')[1];
-        console.log(profPicName);
-        setProfpic(profPicName);
-        console.log("After setProfpic");
-        console.log(profpic);
-        });*/
+        console.log(apiRespose);
+        setProfilePic(apiRespose.data);
 
     };
 
