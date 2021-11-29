@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {User} from "../../redux/actions";
-import {StoreState} from "../../redux/reducers";
-import {connect, useSelector} from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { User } from "../../redux/actions";
+import { StoreState } from "../../redux/reducers";
+import { connect, useSelector } from "react-redux";
 import './Profile.Module.css';
-import {Button} from "reactstrap";
+import { Button } from "reactstrap";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
+import './ProfilePic.css';
 
 
 interface ProfileProps {
@@ -35,18 +38,52 @@ const _Profile: React.FC<ProfileProps> = (props) => {
     const [city, setCity] = useState(appState.userLogin.city)
     const [zipcode, setZipCode] = useState(appState.userLogin.zipcode)
     const [relationshipStatus, setRelationshipStatus] = useState(appState.userLogin.relationshipStatus)
+    const [profpic, setProfpic] = useState(appState.userLogin.profpic)
 
+    const renderPic = (): string => {
+        console.log(profpic);
+        if (profpic === null || profpic === "") {
+            return "https://projecttrackerbucket.s3.us-west-1.amazonaws.com/default-profile-pic.jpg"; //replace URLs with HealthCache S3 url
+        } else {
+            return "https://projecttrackerbucket.s3.us-west-1.amazonaws.com/" + profpic;
+        }
+    }
 
 
 
     useEffect(() => {
         console.log(appState)
-        if (appState.userLogin.user_id === 0){
+        if (appState.userLogin.user_id === 0) {
             // @ts-ignore
             navigate("/login");
         }
         console.log(appState.userLogin)
     }, [editMode]);
+
+    const imageHandler = async (e: any) => {
+        console.log("in imageHandler method");
+
+        const data = new FormData();
+        data.append("file", e.target.files[0]);
+
+        //-----Replace URL with the EC2 HealthCache URL
+        const apiRespose = await axios.post("http://ec2-3-140-252-233.us-east-2.compute.amazonaws.com:9090/file/upload", data);
+
+        const noSpacesString = apiRespose.data.replace(/ /g, '').split(':')[1];
+        console.log(noSpacesString);
+        setProfpic(noSpacesString);
+
+        /*apiRespose.text().then(function (text) {
+        // do something with the text response 
+        var noSpacesString= text.replace(/ /g,'');
+        const profPicName = noSpacesString.split(':')[1];
+        console.log(profPicName);
+        setProfpic(profPicName);
+        console.log("After setProfpic");
+        console.log(profpic);
+        });*/
+
+    };
 
 
     return (
@@ -56,52 +93,62 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img
                             className="rounded-circle mt-5" width="150px"
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/><span
-                            className="font-weight-bold">{firstName}</span><span
-                            className="text-black-50">{email}</span><span> </span></div>
+                            src={renderPic()} />
+                            <span
+                                className="font-weight-bold">{firstName}</span><span
+                                    className="text-black-50">{email}</span><span> </span>
+                            <input type="file" accept="image/*" name="image-upload" id="input" onChange={imageHandler} />
+                            <div className="label">
+                                <label className="image-upload" htmlFor="input">
+
+                                    Select photo
+                                </label>
+                            </div>
+
+                        </div>
                     </div>
                     <div className="col-md-5 border-right">
                         <div className="p-3 py-5">
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <h4 className="text-right">Profile Settings</h4>
-                                <Button className={"center"} onClick={()=> setEditMode(!editMode)}>Update Profile Info</Button>
+                                <Button className={"center"} onClick={() => setEditMode(!editMode)}>Update Profile Info</Button>
 
                             </div>
                             {editMode ? <section>
                                 <div className="row mt-2">
                                     <div className="col-md-6"><label className="labels">First Name</label><input type="text"
-                                                                                                                 className="form-control"
-                                                                                                                 placeholder="first name"
-                                                                                                                 value={firstName}
-                                                                                                                 onChange={(e) => setFirstName(e.target.value)}
+                                        className="form-control"
+                                        placeholder="first name"
+                                        value={firstName}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                     />
                                     </div>
                                     <div className="col-md-6"><label className="labels">Last Name</label><input type="text"
-                                                                                                                className="form-control"
-                                                                                                                value={lastName}
-                                                                                                                placeholder="Last Name"
-                                                                                                                onChange={(e) => setLastName(e.target.value)}/>
+                                        className="form-control"
+                                        value={lastName}
+                                        placeholder="Last Name"
+                                        onChange={(e) => setLastName(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="row mt-3">
                                     <div className="col-md-12"><label className="labels">Username</label><input
                                         type="text" className="form-control" placeholder="enter Username"
                                         value={username}
-                                        onChange={(e) => setUserName(e.target.value)}/>
+                                        onChange={(e) => setUserName(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Password</label><input
                                         type="password" className="form-control" placeholder="enter password"
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}/>
+                                        onChange={(e) => setPassword(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Date Of Birth</label>
-                                        <br/>
+                                        <br />
                                         <DatePicker className={"form-control"}
-                                                    closeOnScroll={true}
-                                                    // @ts-ignore
-                                                    selected={dob}
-                                                    // @ts-ignore
-                                                    onChange={(date:Date) => setDob(date)}
+                                            closeOnScroll={true}
+                                            // @ts-ignore
+                                            selected={dob}
+                                            // @ts-ignore
+                                            onChange={(date: Date) => setDob(date)}
                                         />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Gender</label><input
@@ -113,128 +160,128 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                                     <div className="col-md-12"><label className="labels">Relationship Status</label><input
                                         type="text" className="form-control" placeholder="Relationship Status"
                                         value={relationshipStatus}
-                                        onChange={(e) => setRelationshipStatus(e.target.value)}/>
+                                        onChange={(e) => setRelationshipStatus(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Mobile Number</label><input
                                         type="text" className="form-control" placeholder="enter phone number"
                                         value={phoneNo}
-                                        onChange={(e) => setPhoneNo(e.target.value)}/>
+                                        onChange={(e) => setPhoneNo(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Address Line 1</label><input
                                         type="text" className="form-control" placeholder="enter address line 1"
                                         value={addressLineOne}
-                                        onChange={(e) => setAddressLineOne(e.target.value)}/>
+                                        onChange={(e) => setAddressLineOne(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Address Line 2</label><input
                                         type="text" className="form-control" placeholder="enter address line 2"
                                         value={addressLineTwo}
-                                        onChange={(e) => setAddressLineTwo(e.target.value)}/>
+                                        onChange={(e) => setAddressLineTwo(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">City</label><input
                                         type="text" className="form-control" placeholder="enter City"
                                         value={city}
-                                        onChange={(e) => setCity(e.target.value)}/>
+                                        onChange={(e) => setCity(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">ZipCode</label><input type="text"
-                                                                                                               className="form-control"
-                                                                                                               placeholder="enter address line 2"
-                                                                                                               value={zipcode}
-                                                                                                               onChange={(e) => setZipCode(e.target.value)}/>
+                                        className="form-control"
+                                        placeholder="enter address line 2"
+                                        value={zipcode}
+                                        onChange={(e) => setZipCode(e.target.value)} />
                                     </div>
                                     <div className="col-md-12"><label className="labels">Email</label><input type="text"
-                                                                                                             className="form-control"
-                                                                                                             placeholder="enter email address"
-                                                                                                             value={email}
-                                                                                                             onChange={(e) => setEmail(e.target.value)}/>
+                                        className="form-control"
+                                        placeholder="enter email address"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                 </div>
-                                    <div className="mt-5 text-center">
-                                        <Button className="btn btn-primary profile-button" type="button">Save Profile</Button>
-                                    </div>
-                            </section>:
-                            <section>
-                                <div className="row mt-2">
-                                    <div className="col-md-6"><label className="labels">First Name</label><input disabled type="text"
-                                                                                                                 className="form-control"
-                                                                                                                 placeholder="first name"
-                                                                                                                 value={firstName}
-                                                                                                                 onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                    </div>
-                                    <div className="col-md-6"><label className="labels">Last Name</label><input disabled type="text"
-                                                                                                                className="form-control"
-                                                                                                                value={lastName}
-                                                                                                                placeholder="Last Name"
-                                                                                                                onChange={(e) => setLastName(e.target.value)}/>
-                                    </div>
+                                <div className="mt-5 text-center">
+                                    <Button className="btn btn-primary profile-button" type="button">Save Profile</Button>
                                 </div>
-                                <div className="row mt-3">
-                                    <div className="col-md-12"><label className="labels">Username</label><input
-                                        disabled type="text" className="form-control" placeholder="enter Username"
-                                        value={username}
-                                        onChange={(e) => setUserName(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Password</label><input
-                                        disabled type="password" className="form-control" placeholder="enter password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Date Of Birth</label>
-                                        <br/>
-                                        <DatePicker className={"form-control"}
-                                                    disabled
-                                                    closeOnScroll={true}
-                                                    // @ts-ignore
-                                                    selected={dob}
-                                                    // @ts-ignore
-                                                    onChange={(date:Date) => setDob(date)}
+                            </section> :
+                                <section>
+                                    <div className="row mt-2">
+                                        <div className="col-md-6"><label className="labels">First Name</label><input disabled type="text"
+                                            className="form-control"
+                                            placeholder="first name"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
                                         />
+                                        </div>
+                                        <div className="col-md-6"><label className="labels">Last Name</label><input disabled type="text"
+                                            className="form-control"
+                                            value={lastName}
+                                            placeholder="Last Name"
+                                            onChange={(e) => setLastName(e.target.value)} />
+                                        </div>
                                     </div>
-                                    <div className="col-md-12"><label className="labels">Gender</label><input
-                                        disabled type="text" className="form-control" placeholder="Gender"
-                                        value={gender}
-                                        onChange={(e) => setGender(e.target.value)}
-                                    />
+                                    <div className="row mt-3">
+                                        <div className="col-md-12"><label className="labels">Username</label><input
+                                            disabled type="text" className="form-control" placeholder="enter Username"
+                                            value={username}
+                                            onChange={(e) => setUserName(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Password</label><input
+                                            disabled type="password" className="form-control" placeholder="enter password"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Date Of Birth</label>
+                                            <br />
+                                            <DatePicker className={"form-control"}
+                                                disabled
+                                                closeOnScroll={true}
+                                                // @ts-ignore
+                                                selected={dob}
+                                                // @ts-ignore
+                                                onChange={(date: Date) => setDob(date)}
+                                            />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Gender</label><input
+                                            disabled type="text" className="form-control" placeholder="Gender"
+                                            value={gender}
+                                            onChange={(e) => setGender(e.target.value)}
+                                        />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Relationship Status</label><input
+                                            disabled type="text" className="form-control" placeholder="Relationship Status"
+                                            value={relationshipStatus}
+                                            onChange={(e) => setRelationshipStatus(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Mobile Number</label><input
+                                            disabled type="text" className="form-control" placeholder="enter phone number"
+                                            value={phoneNo}
+                                            onChange={(e) => setPhoneNo(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Address Line 1</label><input
+                                            disabled type="text" className="form-control" placeholder="enter address line 1"
+                                            value={addressLineOne}
+                                            onChange={(e) => setAddressLineOne(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Address Line 2</label><input
+                                            disabled type="text" className="form-control" placeholder="enter address line 2"
+                                            value={addressLineTwo}
+                                            onChange={(e) => setAddressLineTwo(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">City</label><input
+                                            disabled type="text" className="form-control" placeholder="enter City"
+                                            value={city}
+                                            onChange={(e) => setCity(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">ZipCode</label><input disabled type="text"
+                                            className="form-control"
+                                            placeholder="enter address line 2"
+                                            value={zipcode}
+                                            onChange={(e) => setZipCode(e.target.value)} />
+                                        </div>
+                                        <div className="col-md-12"><label className="labels">Email</label><input disabled type="text"
+                                            className="form-control"
+                                            placeholder="enter email address"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)} />
+                                        </div>
                                     </div>
-                                    <div className="col-md-12"><label className="labels">Relationship Status</label><input
-                                        disabled type="text" className="form-control" placeholder="Relationship Status"
-                                        value={relationshipStatus}
-                                        onChange={(e) => setRelationshipStatus(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Mobile Number</label><input
-                                        disabled type="text" className="form-control" placeholder="enter phone number"
-                                        value={phoneNo}
-                                        onChange={(e) => setPhoneNo(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Address Line 1</label><input
-                                        disabled type="text" className="form-control" placeholder="enter address line 1"
-                                        value={addressLineOne}
-                                        onChange={(e) => setAddressLineOne(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Address Line 2</label><input
-                                        disabled  type="text" className="form-control" placeholder="enter address line 2"
-                                        value={addressLineTwo}
-                                        onChange={(e) => setAddressLineTwo(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">City</label><input
-                                        disabled type="text" className="form-control" placeholder="enter City"
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">ZipCode</label><input disabled type="text"
-                                                                                                               className="form-control"
-                                                                                                               placeholder="enter address line 2"
-                                                                                                               value={zipcode}
-                                                                                                               onChange={(e) => setZipCode(e.target.value)}/>
-                                    </div>
-                                    <div className="col-md-12"><label className="labels">Email</label><input disabled type="text"
-                                                                                                             className="form-control"
-                                                                                                             placeholder="enter email address"
-                                                                                                             value={email}
-                                                                                                             onChange={(e) => setEmail(e.target.value)}/>
-                                    </div>
-                                </div>
-                            </section>}
+                                </section>}
                         </div>
                     </div>
                 </div>
@@ -245,8 +292,8 @@ const _Profile: React.FC<ProfileProps> = (props) => {
 }
 
 
-const mapStateToProps = ({userLogin}: StoreState): { userLogin: User } => {
-    return {userLogin}
+const mapStateToProps = ({ userLogin }: StoreState): { userLogin: User } => {
+    return { userLogin }
 }
 
 
