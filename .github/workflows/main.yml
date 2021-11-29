@@ -40,7 +40,7 @@ jobs:
         run: |
           yarn build
         env:
-         CI: true
+         CI: false
       # - name: Unit Tests
       #  run: |
       #    yarn test
