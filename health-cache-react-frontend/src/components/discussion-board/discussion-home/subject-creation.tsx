@@ -59,13 +59,12 @@ export const SubjectCreation : React.FC<any> = () => {
         return text;
     }
 
-    const createSubjectAsync = async (event: any) => {
+    const createSubjectAsync = async () => {
         let date:Date = new Date();
-        setConvertedText(deleteSpaces(convertedText));
-        await dispatch(
+        dispatch(
             createSubject({
               
-              content:convertedText,
+              content:deleteSpaces(convertedText),
               timestamp:date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay()+' '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
               user_id:46, //This should be the logged in user info
               username:"Virut"

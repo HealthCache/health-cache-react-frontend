@@ -30,6 +30,10 @@ export const Discussion:React.FC<any> = ({subject}) => {
         );
     }
 
+    function displayContent(content:string):any {
+        return {__html: content};
+    }
+
     return(
         <div className = "subject">
         <div className="subject-container">
@@ -39,7 +43,7 @@ export const Discussion:React.FC<any> = ({subject}) => {
             </div>
 
             <div className="subject-content">
-                <p>{subject.content}</p>
+                <div dangerouslySetInnerHTML={displayContent(subject.content)}></div>
             </div>
             <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(subject.timestamp).toDateString()} {new Date(subject.timestamp).toLocaleTimeString()}</p>
             </div>

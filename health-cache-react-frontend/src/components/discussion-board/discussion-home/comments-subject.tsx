@@ -46,7 +46,7 @@ export const CommentThread : React.FC<any> = () => {
         </Row>  
 
         
-        <Row><CommentEditor/></Row>
+        <Row><CommentEditor id={appState.singleSubject.id}/></Row>
         
         </div>
         </>
@@ -61,6 +61,10 @@ export const Comment : React.FC<any> = (message:any) => {
         
     },[]);
 
+    function displayContent(content:string):any {
+        return {__html: content};
+    }
+
     return(
         <div className = "comment">
         <div className="subject-container">
@@ -70,7 +74,7 @@ export const Comment : React.FC<any> = (message:any) => {
             </div>
 
             <div className="subject-content">
-                <p>{message.subject.content}</p>
+                <div dangerouslySetInnerHTML={displayContent(message.subject.content)}></div>
             </div>
             <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(message.subject.timestamp).toDateString()} </p>
             </div>
@@ -81,7 +85,9 @@ export const Comment : React.FC<any> = (message:any) => {
 
 
 export const MainSubject : React.FC<any> = () => {
-    
+function displayContent(content:string):any {
+    return {__html: content};
+}
 const appState = useSelector<any, any>((state) => state);
 
     return(
@@ -95,7 +101,9 @@ const appState = useSelector<any, any>((state) => state);
             <img className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="80" height="80"/>
     </Col>
     <Col xs={6}><h2>{appState.singleSubject.username.username}</h2>
-    <Row>{appState.singleSubject.content}</Row>
+    <Row>
+        <div dangerouslySetInnerHTML={displayContent(appState.singleSubject.content)}></div>
+    </Row>
     </Col>
     <Col xs={4}> <FaCalendarAlt/> {appState.singleSubject.timestamp}
     
