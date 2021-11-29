@@ -76,7 +76,7 @@ export const CommentEditor : React.FC<any> = (props) => {
                 <Row id= "editor-footer">
                     <Col xs={border}></Col>
                     <Col xs={8}></Col>
-                    <Col id="send-button" ><Button onClick={createCommentAsync}>Send <FaPaperPlane/></Button></Col>
+                    <Col  id="send-button" ><Button className="text-primary2" onClick={createCommentAsync}>Send <FaPaperPlane  /></Button></Col>
                     <Col xs={border}></Col>
                 </Row>
                 </Col>

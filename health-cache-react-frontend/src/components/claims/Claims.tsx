@@ -11,7 +11,9 @@ import {
   InputGroup,
   FormControl,
   Form,
-  Button
+  Button,
+  Row,
+  Col
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
@@ -115,7 +117,6 @@ const Claims: React.FC<any> = () => {
             <Form className="modal-form">
               <InputGroup className="mb-3">
                 <DropdownButton
-                  variant="outline-secondary"
                   title="Claim Type"
                   onSelect={(
                     eventKey: string | null,
@@ -150,10 +151,10 @@ const Claims: React.FC<any> = () => {
               </Form>
             </ModalBody>
             <ModalFooter>
-              <button className="rev-btn" type="button" onClick={handleSubmit}>
+              <button className="rev-btn border-primary rounded" type="button" onClick={handleSubmit}>
                 Submit
               </button>
-              <button className="rev-btn" type="button" onClick={handleClose}>
+              <button className="bg-primary3 rev-btn border-primary3 rounded" type="button" onClick={handleClose}>
                 Cancel
               </button>
             </ModalFooter>

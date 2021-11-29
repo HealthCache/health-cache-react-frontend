@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {Subject} from '../../../redux/actions/subjects';
 
+
 // import {useHistory} from "react-router";
 
 import {
@@ -78,11 +79,15 @@ export const Discussions: React.FC<any> = () => {
                     {
                         appState.subjects.map((itm:any, idx:number) => {
                            return(
+                             <div>
                             <Discussion key={idx} subject={itm}/>
+                            <br/>
+                            </div>
                            );
                         })
                     }
                 </Row>
+
             </Container>
           </div>
           </>

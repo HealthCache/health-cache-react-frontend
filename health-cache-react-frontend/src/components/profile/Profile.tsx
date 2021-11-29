@@ -79,7 +79,7 @@ const _Profile: React.FC<ProfileProps> = (props) => {
 
     return (
         <section>
-            <div className="container rounded bg-white mt-5 mb-5">
+            <div className="container rounded bg-white mt-5 mb-5 text-primary3">
                 <div className="row">
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img
@@ -102,12 +102,12 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                         <div className="p-3 py-5">
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <h4 className="text-right">Profile Settings</h4>
-                                <Button className={"center"} onClick={() => setEditMode(!editMode)}>Update Profile Info</Button>
+                                <Button className={"center bg-primary border-primary text-primary2"} onClick={() => setEditMode(!editMode)}>Update Profile Info</Button>
 
                             </div>
                             {editMode ? <section>
-                                <div className="row mt-2">
-                                    <div className="col-md-6"><label className="labels">First Name</label><input type="text"
+                                <div className="row mt-2 ">
+                                    <div className="col-md-6 "><label className="labels">First Name</label><input type="text"
                                         className="form-control"
                                         placeholder="first name"
                                         value={firstName}
