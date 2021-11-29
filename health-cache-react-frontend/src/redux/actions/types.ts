@@ -2,7 +2,7 @@ import {FetchAllUsersAction} from "./users";
 import {LoginUserAction, LogoutUserAction} from "./login";
 import { AddClaimAction, FetchAllClaimsAction, FetchUsersClaimsAction } from "./claims";
 import {FetchAllSubjectsAction} from "./subjects"
-import {FetchAllMessagesAction} from "./messages"
+import {FetchAllMessagesAction, createMessageAction} from "./messages"
 //import { createSubject } from "./subjects";
 import { createSubjectAction } from ".";
 import {fetchRecentSubjects} from "./subjects"
@@ -22,9 +22,10 @@ export enum ActionTypes{
     createSubject,
     fetchAllSubjectsByUser,
     fetchRecentSubjects,
-    fetchById
+    fetchById,
+    createMessage
 }
 
 
-export type Action = FetchAllUsersAction | LoginUserAction | LogoutUserAction | FetchAllClaimsAction | AddClaimAction | FetchUsersClaimsAction | FetchAllSubjectsAction | FetchAllMessagesAction | FetchAllSubjectsByUserAction  | fetchRecentSubjects | fetchByIdAction | createSubjectAction
+export type Action = FetchAllUsersAction | LoginUserAction | LogoutUserAction | FetchAllClaimsAction | AddClaimAction | FetchUsersClaimsAction | FetchAllSubjectsAction | FetchAllMessagesAction | FetchAllSubjectsByUserAction  | fetchRecentSubjects | fetchByIdAction | createSubjectAction | createMessageAction
     ;

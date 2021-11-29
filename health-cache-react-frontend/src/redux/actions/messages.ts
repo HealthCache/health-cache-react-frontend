@@ -28,3 +28,28 @@ export const fetchAllMessages = () => {
         })
     }
 }
+
+export interface createMessageAction{
+    type: ActionTypes.createMessage;
+    payload: Message[];
+}
+
+export interface IMessageCreation{
+    content:string,
+    timestamp:string,
+    subject_id:number,
+    user_id:number,
+    username:string
+}
+
+export const createMessage = (message:IMessageCreation) => {
+    return async (dispatch: Dispatch) => {
+        console.log("im here and message is");
+        console.log(message);
+        const resp = await axios.post<Message[]>(urlApi+'create',message)
+        dispatch<createMessageAction>({
+            type: ActionTypes.createMessage,
+            payload: resp.data
+        })
+    }
+}
