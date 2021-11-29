@@ -67,7 +67,8 @@ const _Profile: React.FC<ProfileProps> = (props) => {
         data.append("file", e.target.files[0]);
 
         //-----Replace URL with the EC2 HealthCache URL
-        const apiRespose = await axios.post("http://ec2-3-140-252-233.us-east-2.compute.amazonaws.com:9090/file/upload", data);
+        //const apiRespose = await axios.post("http://ec2-3-140-252-233.us-east-2.compute.amazonaws.com:9090/file/upload", data);
+        const apiRespose = await axios.post("/file/upload", data);
 
         const noSpacesString = apiRespose.data.replace(/ /g, '').split(':')[1];
         console.log(noSpacesString);

@@ -6,7 +6,6 @@ import "./claims.css";
 import { IClaim } from "./IClaim";
 import {
   Modal,
-  ModalTitle,
   Dropdown,
   DropdownButton,
   InputGroup,
@@ -24,6 +23,7 @@ const Claims: React.FC<any> = () => {
   let state = useSelector((state: any) => state);
   console.log("user_id from state: ", state.userLogin.user_id);
 
+  const [show, setShow] = useState(false);
   let [claims, setClaims] = useState([]);
   let [claimType, setClaimType] = useState("");
   let newClaim = {
@@ -66,7 +66,7 @@ const Claims: React.FC<any> = () => {
 
   }, [claimType, newClaim.claimType]); 
 
-  const [show, setShow] = useState(false);
+  
 
   const handleClose = () => {
     setShow(false);
@@ -158,9 +158,8 @@ const Claims: React.FC<any> = () => {
                 Cancel
               </button>
             </ModalFooter>
-          
-        
       </Modal>
+
     </div>
   );
 };
