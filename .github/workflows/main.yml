@@ -32,7 +32,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Traverse
         run: |
-          cd /health-cache-react-frontend/
+          cd ~/health-cache-react-frontend
       - name: Yarn Install
         run: |
           yarn install
@@ -40,7 +40,7 @@ jobs:
         run: |
           yarn build
         env:
-         CI: true
+         CI: false
       # - name: Unit Tests
       #  run: |
       #    yarn test
