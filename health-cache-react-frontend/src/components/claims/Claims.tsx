@@ -39,7 +39,8 @@ const Claims: React.FC<any> = () => {
     newClaim.claimType = claimType;
     console.log("submitting new claim: ", newClaim);
     try {
-      let res = await axios.post("http://184.72.201.95:8089/claim/save", newClaim);
+      //let res = await axios.post("http://184.72.201.95:8089/claim/save", newClaim);
+      let res = await axios.post("/claim/save", newClaim);
 
       console.log("RESPONSE FROM AXIOS", res);
       fetchClaims();
@@ -50,7 +51,8 @@ const Claims: React.FC<any> = () => {
   };
 
   const fetchClaims = async () => {
-    let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${newClaim.userId}`);
+    //let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${newClaim.userId}`);
+    let res = await axios.get(`/claim/byuserid/${newClaim.userId}`);
     setClaims(res.data);
     console.log("claim: ", res.data);
   };
@@ -109,7 +111,7 @@ const Claims: React.FC<any> = () => {
       </table>
 
       <Modal show={show}>
-        <ModalHeader className="center-text max-width"><h2 id="mod-title">Create New Claim</h2></ModalHeader>
+        <ModalHeader className="center-text max-width"><span id="mod-title">Create New Claim</span></ModalHeader>
             <ModalBody className="modal-body">
             <Form className="modal-form">
               <InputGroup className="mb-3">
@@ -124,8 +126,7 @@ const Claims: React.FC<any> = () => {
                     if (eventKey != null) {
                       setClaimType(eventKey);
                     }
-                  }}
-                >
+                  }} >
                   <Dropdown.Item eventKey="SURGERY">SURGERY</Dropdown.Item>
                   <Dropdown.Item eventKey="MEDICATION">
                     MEDICATION

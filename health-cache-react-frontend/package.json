@@ -2,6 +2,7 @@
   "name": "health-cache-react-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://184.72.201.95:8081",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -59,6 +60,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.15",
+    "http-proxy-middleware": "^2.0.1",
     "tslint-config-prettier": "^1.18.0"
   }
 }
