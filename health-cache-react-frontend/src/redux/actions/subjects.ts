@@ -63,7 +63,7 @@ export interface fetchByIdAction {
 
 export const fetchRecentSubjects = () => {
     return async (dispatch: Dispatch) => {
-        const resp = await axios.get<Subject[]>(urlApi+'recent')
+        const resp = await axios.get<Subject[]>(urlApi+'getlatestten')
         dispatch<fetchRecentSubjects>({
             type: ActionTypes.fetchRecentSubjects,
             payload: resp.data
