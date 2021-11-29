@@ -82,7 +82,7 @@ tr:nth-child(even) {
     font-family: 'Futura Std Medium', sans-serif;
     color: white;
     background-color: var(--rev-orange) !important;
-    margin-right: 2.5%;
+    margin-right: 10%;
     float: right;
 }
 
@@ -127,4 +127,8 @@ tr:nth-child(even) {
     float: right;
     margin-right: 10.5%;
     border-radius: 20px !important;
+}
+
+.container-dg{
+    background-color: var(--rev-dg);
 }

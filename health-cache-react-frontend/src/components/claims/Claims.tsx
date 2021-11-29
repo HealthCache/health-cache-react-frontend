@@ -75,15 +75,14 @@ const Claims: React.FC<any> = () => {
   }
   const handleShow = () => { setShow(true); }
 
-  const toggleDarkMode = () => {
-    document.body.className = document.body.className === "body-dk"? "body-lt": "body-dk";
-  }
+  const myState = useSelector(state=> state);
+
+  console.log(myState);
 
   return (
     <div className="content">
       <div className="header-region">
         <h3 className="page-title"><span>My Claims</span></h3>
-        <Button className="dm-btn" variant="dark" onClick={toggleDarkMode}>Dark Mode</Button>
         <Button className="rev-btn" variant="secondary" onClick={handleShow}>New Claim</Button>
       </div>
       
