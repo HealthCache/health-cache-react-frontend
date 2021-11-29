@@ -82,12 +82,10 @@ const Claims: React.FC<any> = () => {
   console.log(myState);
 
   return (
-    <div className="content">
-      <div className="header-region">
-        <h3 className="page-title"><span>My Claims</span></h3>
-        <Button className="rev-btn" variant="secondary" onClick={handleShow}>New Claim</Button>
-      </div>
-      
+    <div className="container pt-5">
+      <div className="container shadow p-3 mb-5 bg-secondary3 text-black rounded ">
+      <Button className="float-right btn btn-primary text-primary2 btn-block" onClick={handleShow}>New File Claim</Button>
+      <h1 className="text-primary2">My File Claims</h1>
       <hr />
       <table>
         <tbody>
@@ -110,7 +108,7 @@ const Claims: React.FC<any> = () => {
         })}
         </tbody>
       </table>
-
+      </div>
       <Modal show={show}>
         <ModalHeader className="center-text max-width"><span id="mod-title">Create New Claim</span></ModalHeader>
             <ModalBody className="modal-body">
@@ -159,7 +157,6 @@ const Claims: React.FC<any> = () => {
               </button>
             </ModalFooter>
       </Modal>
-
     </div>
   );
 };
