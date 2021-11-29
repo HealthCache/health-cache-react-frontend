@@ -42,7 +42,8 @@ export interface regUser{
 export const registerUser = (user:regUser) => {
     return async () => {
         try {
-        const resp = await axios.post('http://localhost:8089/api/user/register',user) 
+        //const resp = await axios.post('http://localhost:8089/api/user/register',user) 
+        const resp = await axios.post('/api/user/register',user)
         window.location.assign('/Login')
         }
         catch(e) {
@@ -56,7 +57,8 @@ export const loginUser = (user:LoginType) => {
     
     return async (dispatch: Dispatch) => {
         try {
-            const resp = await axios.post('http://localhost:8089/api/user/login',user)
+            //const resp = await axios.post('http://localhost:8089/api/user/login',user)
+            const resp = await axios.post('/api/user/login',user);
             dispatch<LoginUserAction>({
                 type: ActionTypes.login,
                 payload: resp.data

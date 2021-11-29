@@ -3,7 +3,8 @@ import { Message } from "./messages";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 
-const urlApi = `http://localhost:8092/subject/` ; //to be set with API host/subject
+//const urlApi = `http://localhost:8092/subject/` ; //to be set with API host/subject
+const urlApi = `/subject/`;
 
 export interface Subject{
     subject_id: number

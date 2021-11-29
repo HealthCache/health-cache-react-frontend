@@ -2,7 +2,8 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 
-const urlApi = `http://52.14.40.145:8080/api/users/all` ;
+//const urlApi = `http://52.14.40.145:8080/api/users/all` ;
+const urlApi = `/api/users/all`;
 
 export interface User{
     user_id: number,

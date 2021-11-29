@@ -2,8 +2,8 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 
-const urlApi = `http://localhost:8092/message/` ; //to be set with API host/message
-
+//const urlApi = `http://localhost:8092/message/` ; //to be set with API host/message
+const urlApi = `/message/`;
 
 export interface Message{
     message_id: number,
