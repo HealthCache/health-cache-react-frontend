@@ -7,6 +7,8 @@ import {Subject} from '../../../redux/actions/subjects';
 import {
     Nav,
     Row,
+    CardGroup,
+    Card,
     Col,
     Form,
     Button,
@@ -22,7 +24,7 @@ import { fetchById } from '../../../redux/actions';
 export const Discussions: React.FC<any> = () => {
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
-    //const [url, setUrl] = useState("/recent")
+    const [url, setUrl] = useState("/Recent")
     const appState = useSelector<any, any>((state) => state);
 
     // const history = useHistory();
@@ -31,34 +33,70 @@ export const Discussions: React.FC<any> = () => {
       //  history.push("/bookmarks");
       //};
 
-      useEffect(()=>{            
-        loadSubjects();
-      },[]);
+      useEffect(()=>{ 
+          loadSubjects()
+      }, [{url}]);
 
+      /*
+      useEffect(() => {
+        (async () => {
+          let iListings: Listing[] = []; // Intermediate listing array
+          for await (let listing of getListingPreviewsByURL(props.url))
+            iListings.push(listing);
+          setListings(iListings);
+        })();
+      });
+      */
+
+      /*
       useEffect(()=>{        
         console.log(appState);      
       },[appState]);
+      */
 
-      const loadSubjects = async () => {
-        await dispatch(
-            fetchAllSubjects()
-        );
+      const toDiscussion = () => {
+        setUrl('/Discussion');
+        navigate('/Discussion')
       }
 
-      const loadRecent = async (event: any) => {
+      const toRecent = () => {
+        setUrl('/Recent');
+        navigate('/Recent')
+      }
+
+      const loadSubjects = async () => {
+        if (url === '/Discussion'){
+          if (appState.users.user_id == 0)
+            await dispatch(
+              fetchAllSubjects()
+            );
+          else
+            await dispatch(
+              fetchAllSubjectsByUser(appState.users.user_id)
+            );
+        }    
+        else if (url === '/Recent')
+          await dispatch(
+            fetchRecentSubjects()
+          );
+      }
+      
+      /*
+      const loadRecent = async () => {
         await dispatch(
           fetchRecentSubjects()
         );
       }
-
-
-
-    const loadSubjectsByUser = async (event: any) => {
-      await dispatch(
-          fetchAllSubjectsByUser(appState.User.user_id)
-      );
-  }
+      */
     
+    /*
+    const loadSubjectsByUser = async (user_id:number) => {
+      await dispatch(
+          fetchAllSubjectsByUser(user_id)
+      );
+    }
+    */
+
       return(
           <>
           <div className="mb-5">
@@ -68,11 +106,11 @@ export const Discussions: React.FC<any> = () => {
           </div>
           <div>
             <Container>
-                <Nav className="justify-content-center" variant="tabs" defaultActiveKey="/yourDiscussions">
+                <Nav className="justify-content-center" variant="tabs" defaultActiveKey='/Discussion'>
                     <Nav.Item>
-                        <Nav.Link href="/yourDiscussions">Your Discussions</Nav.Link>
+                        <Nav.Link href='/Discussion' onClick={toDiscussion}>Your Discussions</Nav.Link>
                     </Nav.Item>
-                    <Nav.Link href="/recent" onClick={loadRecent}>Recent</Nav.Link>
+                    <Nav.Link onClick={toRecent}>Recent</Nav.Link>
                 </Nav>
                 <Row>
                     {
@@ -86,6 +124,6 @@ export const Discussions: React.FC<any> = () => {
             </Container>
           </div>
           </>
-      );
+      );      
 
 };
