@@ -3,6 +3,7 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 import {User} from "./users";
+import { url } from '../server';
 
 //User Local Backend here till we have AWS RDS setup for team 1 & 2
 //const urlApi ="" ;
@@ -58,7 +59,7 @@ export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
         try {
             //const resp = await axios.post('http://localhost:8089/api/user/login',user)
-            const resp = await axios.post('/api/user/login', user);
+            const resp = await axios.post(url + '/api/user/login', user);
             dispatch<LoginUserAction>({
                 type: ActionTypes.login,
                 payload: resp.data
