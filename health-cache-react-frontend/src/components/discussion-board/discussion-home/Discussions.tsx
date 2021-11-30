@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {Subject} from '../../../redux/actions/subjects';
+import { useNavigate } from 'react-router';
 
 // import {useHistory} from "react-router";
 
@@ -22,9 +23,12 @@ import {fetchRecentSubjects} from "../../../redux/actions";
 import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
+    let usermock = {user_id:46, username:"Virut"};
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
-    const [url, setUrl] = useState("/Recent")
+    let navigate = useNavigate();
+    const [url, setUrl] = useState("/Discussion")
+    const [activeSelection,SetActiveSelection] = useState('recent');
     const appState = useSelector<any, any>((state) => state);
 
     // const history = useHistory();
@@ -33,9 +37,16 @@ export const Discussions: React.FC<any> = () => {
       //  history.push("/bookmarks");
       //};
 
+      useEffect(()=>{
+        loadSubjects2();
+      },[activeSelection]);
+
       useEffect(()=>{ 
-          loadSubjects()
-      }, [{url}]);
+          if(usermock.user_id < 0)
+            SetActiveSelection('your');
+          else
+            SetActiveSelection('recent');
+      }, []);
 
       /*
       useEffect(() => {
@@ -56,29 +67,54 @@ export const Discussions: React.FC<any> = () => {
 
       const toDiscussion = () => {
         setUrl('/Discussion');
-        navigate('/Discussion')
+        //navigate('/Discussion')
+        SetActiveSelection('your');
       }
 
       const toRecent = () => {
         setUrl('/Recent');
-        navigate('/Recent')
+        //navigate('/Recent')
+        SetActiveSelection('recent');
+      }
+
+      const loadSubjects2 = async () => {
+        console.log(activeSelection);
+        if(activeSelection==='your')
+          await dispatch(
+            fetchAllSubjectsByUser(usermock.user_id)            
+          );
+        else
+          await dispatch(
+            fetchRecentSubjects()
+          );
       }
 
       const loadSubjects = async () => {
         if (url === '/Discussion'){
-          if (appState.users.user_id == 0)
+          if (appState.userLogin.user_id === 0)
             await dispatch(
               fetchAllSubjects()
             );
           else
             await dispatch(
-              fetchAllSubjectsByUser(appState.users.user_id)
+              fetchAllSubjectsByUser(appState.userLogin.user_id)
             );
         }    
         else if (url === '/Recent')
           await dispatch(
             fetchRecentSubjects()
           );
+      }
+
+      function YourDiscussionsOption() {
+        
+        if(usermock.user_id > 0){
+          return (
+              <Nav.Item onClick={toDiscussion}>
+                <Nav.Link  className={activeSelection==='your'?'active':''}>Your Discussions</Nav.Link>
+              </Nav.Item>)
+
+        }
       }
       
       /*
@@ -107,10 +143,11 @@ export const Discussions: React.FC<any> = () => {
           <div>
             <Container>
                 <Nav className="justify-content-center" variant="tabs" defaultActiveKey='/Discussion'>
-                    <Nav.Item>
-                        <Nav.Link href='/Discussion' onClick={toDiscussion}>Your Discussions</Nav.Link>
+                    {YourDiscussionsOption()}
+                    <Nav.Item onClick={toRecent}>
+                        <Nav.Link className={activeSelection==='recent'?'active':''} >Recent</Nav.Link>
                     </Nav.Item>
-                    <Nav.Link onClick={toRecent}>Recent</Nav.Link>
+                        
                 </Nav>
                 <Row>
                     {
