@@ -64,6 +64,7 @@ export const loginUser = (user:LoginType) => {
                 payload: resp.data
             })
             sessionStorage.setItem("loggedUser", resp.data);
+            sessionStorage.setItem("USER_ID", resp.data.user_id);
         }
         catch(e) {
             alert("username or password incorrect")

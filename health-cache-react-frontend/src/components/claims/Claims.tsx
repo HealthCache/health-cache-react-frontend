@@ -14,29 +14,14 @@ import {
   Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { User } from "../../redux/actions";
+//import { User } from "../../redux/actions";
 
-const getUser = () => {
-  const userStr = sessionStorage.getItem("loggedUser");
-  console.log("userString: ", userStr);
-  if (userStr) 
-  {return JSON.parse(userStr);}
-  else return null;
-}
+
 
 const Claims: React.FC<any> = () => {
 
-  let state = useSelector((state: any) => state);
-
-  // Get user id from session
-  console.log("user_id from state: ", state.userLogin.user_id);
-  
-  //get user id from sessionStorage
-  // Set the user id to either that from state or default to 1
-   let sessionUser = getUser() as User;
-  let sessionId = sessionUser === null? 1: sessionUser.user_id;
-
-
+  console.log("user-id: " + sessionStorage.getItem("USER_ID"));
+  let sessionId = sessionStorage.getItem("USER_ID");
 
   const [show, setShow] = useState(false);
   let [claims, setClaims] = useState([]);
@@ -70,6 +55,12 @@ const Claims: React.FC<any> = () => {
 
   
   useEffect(() => {
+
+    if (sessionId === "0") {
+      // @ts-ignore
+      navigate("/login");
+  }
+
     if (claimType === "")
     {
       fetchClaims();
@@ -124,7 +115,7 @@ const Claims: React.FC<any> = () => {
 
       <hr />
 
-      
+
       </div>
 
       <Modal show={show}>

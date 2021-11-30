@@ -1,5 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router';
+
+
 
 const NavbarScroller = (props: {
   brand: { name: string; to: string },
@@ -7,16 +10,23 @@ const NavbarScroller = (props: {
 }) => {
 
   const { brand, links } = props;
-  const NavLinks: any = () => links.map((link: { name: string, to: string }) => <Li key={link.name}><a href={link.to}>{link.name}</a></Li>);
+  const NavLinks: any = () => links.map((link: { name: string, to: string }) => <Li key={link.name}><a onClick={() => navigate("/" + brand.to)} href="#">{link.name}</a></Li>);
+
+  const navigate = useNavigate();
+
   return (
     <Navbar>
-      <Brand href={brand.to}>{brand.name}</Brand>
+      <Brand href="#" onClick={() => navigate("/" + brand.to)}>
+      
+      </Brand>
       <Ul>
      <NavLinks/>
       </Ul>
     </Navbar >
   )
 };
+
+
 
 const Theme = {
   colors: {
