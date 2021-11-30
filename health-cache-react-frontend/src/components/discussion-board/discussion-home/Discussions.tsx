@@ -23,12 +23,15 @@ import {fetchRecentSubjects} from "../../../redux/actions";
 import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
-    let usermock = {user_id:46, username:"Virut"};
+    let usermock = {user_id:89, username:"ImpatientPatient"}; //change calls to usermock to match logedIn user
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
     let navigate = useNavigate();
     const [url, setUrl] = useState("/Discussion")
     const [activeSelection,SetActiveSelection] = useState('recent');
+    const [loaded,setLoaded] = useState(false);
+    const [lastest, setLastest] = useState(-1);
+
     const appState = useSelector<any, any>((state) => state);
 
     // const history = useHistory();
@@ -42,11 +45,20 @@ export const Discussions: React.FC<any> = () => {
       },[activeSelection]);
 
       useEffect(()=>{ 
+        console.log(appState);
           if(usermock.user_id < 0)
             SetActiveSelection('your');
           else
             SetActiveSelection('recent');
       }, []);
+
+      useEffect(()=>{ 
+        
+        if(!loaded||lastest<0||(appState.singleSubject.id&&lastest!=appState.singleSubject.id))
+        loadSubjects2();
+    }, [appState]);
+    
+  
 
       /*
       useEffect(() => {
@@ -66,19 +78,20 @@ export const Discussions: React.FC<any> = () => {
       */
 
       const toDiscussion = () => {
+        setLoaded(false);
         setUrl('/Discussion');
         //navigate('/Discussion')
         SetActiveSelection('your');
       }
 
       const toRecent = () => {
+        setLoaded(false);
         setUrl('/Recent');
         //navigate('/Recent')
         SetActiveSelection('recent');
       }
 
       const loadSubjects2 = async () => {
-        console.log(activeSelection);
         if(activeSelection==='your')
           await dispatch(
             fetchAllSubjectsByUser(usermock.user_id)            
@@ -87,6 +100,15 @@ export const Discussions: React.FC<any> = () => {
           await dispatch(
             fetchRecentSubjects()
           );
+          if(appState.subjects.length>0)
+            if(activeSelection==='your')
+              setLastest(appState.subjects[appState.subjects.length-1].id);
+            else
+              setLastest(appState.subjects[0].id);
+
+          if(appState.subjects.length>0 && appState.subjects[0].id===lastest)
+          setLoaded(true);
+          
       }
 
       const loadSubjects = async () => {
@@ -132,12 +154,18 @@ export const Discussions: React.FC<any> = () => {
       );
     }
     */
+      function renderCreateOption () {
+        if(appState.userLogin.user_id!==0) //change to === to check logedIn user in appstate
+          return(<></>);
+        else 
+          return(<SubjectCreation />);
+      }
 
       return(
           <>
           <div className="mb-5">
               <Row>
-                  <SubjectCreation />
+                  {renderCreateOption()}
               </Row>
           </div>
           <div>
