@@ -3,7 +3,7 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 import {User} from "./users";
-import { url } from '../server';
+import { url } from '.../server';
 
 //User Local Backend here till we have AWS RDS setup for team 1 & 2
 //const urlApi ="" ;
