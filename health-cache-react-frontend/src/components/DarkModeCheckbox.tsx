@@ -56,6 +56,13 @@ const DarkModeCheckBox: React.FC<any> = () => {
         });
       } catch(e){console.log(e);}
 
+      try{
+        //id="profile-container" className="container rounded bg-secondary3 rounded mt-5 mb-5 text-primary3"
+        document.getElementById("profile-container")?.classList.add("container-dg");
+        document.getElementById("profile-container")?.classList.remove("bg-secondary3");
+        document.getElementById("profile-container")?.classList.add("white-text");
+      }catch(e){console.log(e);}
+
       }
       else
       {
@@ -95,6 +102,13 @@ const DarkModeCheckBox: React.FC<any> = () => {
         d.classList.add("container-lg");
         });
         } catch(e){console.log(e);}
+
+        try{
+          //id="profile-container" className="container rounded bg-secondary3 rounded mt-5 mb-5 text-primary3"
+          document.getElementById("profile-container")?.classList.remove("container-dg");
+          document.getElementById("profile-container")?.classList.add("bg-secondary3");
+          document.getElementById("profile-container")?.classList.remove("white-text");
+        }catch(e){console.log(e);}
 
       }
       
