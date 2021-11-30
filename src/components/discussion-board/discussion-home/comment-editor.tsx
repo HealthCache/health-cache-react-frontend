@@ -1,20 +1,39 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import './comment-editor.css';
 import { Container,Row,Col,Button} from "react-bootstrap";
 import { FaPaperPlane } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { createMessage, createSubject } from "../../../redux/actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchById,createMessage, createSubject } from "../../../redux/actions";
+
+
 
 
 export const CommentEditor : React.FC<any> = (props) => {
-    const maxCharacterNumber : number = 100 ;
+    const maxCharacterNumber : number = 500 ;
     const border:number = 2;
     const [convertedText, setConvertedText] = useState("");
     const [charCounter, setCharCounter] = useState(0);
+    const [attended,setAttended] = useState(true);
+
+    const appState = useSelector<any, any>((state) => state);
+
 
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        if(!attended)
+        getByID(props.id);
+        console.log(appState);
+    },[appState]);
+
+    const getByID = async (subject_id:number) => {
+        await dispatch(
+            fetchById(subject_id)
+        );
+        setAttended(true);
+    }
 
     const deleteSpaces = (text:string) => {
         text =text.replaceAll("<p><br></p>",'');
@@ -41,14 +60,18 @@ export const CommentEditor : React.FC<any> = (props) => {
         console.log(charCounter);
     }
 
-    const createCommentAsync = async (event:any) => {
+    const createComment = () => {
+        createCommentAsync().then(()=>{setAttended(false)});
+    }
+
+    const createCommentAsync = async () => {
         let date:Date = new Date();
-        console.log(props);
+        
         dispatch(
             createMessage({
               
               content:deleteSpaces(convertedText),
-              timestamp:date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay()+' '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+              timestamp:date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours()+5) + ':' + date.getMinutes() + ':' + date.getSeconds(),
               subject_id: props.id,
               user_id:12, //This should be the logged in user info
               username:"Commentor"
@@ -60,6 +83,8 @@ export const CommentEditor : React.FC<any> = (props) => {
 
     return(
         <Container>
+            <Row><br/></Row>
+            <Row><hr/></Row>
             <Row>
             <Col xs={1}></Col>
             
@@ -76,7 +101,9 @@ export const CommentEditor : React.FC<any> = (props) => {
                 <Row id= "editor-footer">
                     <Col xs={border}></Col>
                     <Col xs={8}></Col>
-                    <Col id="send-button" ><Button onClick={createCommentAsync}>Send <FaPaperPlane/></Button></Col>
+
+                    <Col  id="send-button" ><Button className="text-primary2" onClick={createCommentAsync}>Send <FaPaperPlane  /></Button></Col>
+
                     <Col xs={border}></Col>
                 </Row>
                 </Col>
@@ -84,4 +111,6 @@ export const CommentEditor : React.FC<any> = (props) => {
             </Row>
         </Container>
     )
+  
+  //<Col id="send-button" ><Button onClick={createComment}>Send <FaPaperPlane/></Button></Col>
 }

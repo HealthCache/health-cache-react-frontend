@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useNavigate } from "react-router";
+//import { useNavigate } from "react-router";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 import {User} from "./users";
 
 //User Local Backend here till we have AWS RDS setup for team 1 & 2
-const urlApi ="" ;
+//const urlApi ="" ;
 
 
 export interface LoginUserAction{
@@ -44,11 +44,11 @@ export const registerUser = (user:regUser) => {
         try {
         //const resp = await axios.post('http://localhost:8089/api/user/register',user) 
         const resp = await axios.post('/api/user/register',user)
+        console.log(resp);
         window.location.assign('/Login')
         }
         catch(e) {
             alert("Username or email already taken")
-
         }
     }
 }
@@ -58,7 +58,7 @@ export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
         try {
             //const resp = await axios.post('http://localhost:8089/api/user/login',user)
-            const resp = await axios.post('/api/user/login',user);
+            const resp = await axios.post('/api/user/login', user);
             dispatch<LoginUserAction>({
                 type: ActionTypes.login,
                 payload: resp.data
