@@ -17,7 +17,7 @@ import { FaPlusSquare } from "react-icons/fa";
 
 
 export const SubjectCreation : React.FC<any> = () => {
-  const maxCharacterNumber : number = 100 ;
+  const maxCharacterNumber : number = 500 ;
   const dispatch = useDispatch();
 
   const handleClose = () => {setShow(false); setConvertedText('');};
@@ -32,6 +32,8 @@ export const SubjectCreation : React.FC<any> = () => {
     useEffect(()=>{
         console.log(convertedText);
     },[convertedText]);
+
+    
 
     const countCharacters = (e:any)=>{
 
@@ -59,15 +61,21 @@ export const SubjectCreation : React.FC<any> = () => {
         return text;
     }
 
+    const seeDate = () => {
+        let date:Date = new Date();
+        console.log(date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+
+    }
+
     const createSubjectAsync = async () => {
         let date:Date = new Date();
         dispatch(
             createSubject({
               
               content:deleteSpaces(convertedText),
-              timestamp:date.getFullYear()+'-'+date.getMonth()+'-'+date.getDay()+' '+date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
-              user_id:46, //This should be the logged in user info
-              username:"Virut"
+              timestamp:date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours()+5) + ':' + date.getMinutes() + ':' + date.getSeconds(),
+              user_id:89, //This should be the logged in user info
+              username:"ImpatientPatient"
           
           })
         );
@@ -103,17 +111,28 @@ export const SubjectCreation : React.FC<any> = () => {
                         <li>Rule 3</li>
                     </ul>
                 </Col>
+
+     
             </Row >
             <ModalFooter >
             <Button className="bg-primary3 text-primary2 border-primary3" onClick={handleClose}>Cancel</Button>
             <Button className="bg-primary text-primary2" onClick={createSubjectAsync}>Publish</Button>
+
             
             </ModalFooter>
         </Container>
-
+        
         </Modal>
         </div>
         
         
     )
 }
+
+/*
+ </Row>
+            <ModalFooter>
+            
+            <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+            <Button variant="primary" onClick={createSubjectAsync}>Publish</Button>
+*/
