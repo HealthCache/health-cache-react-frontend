@@ -46,10 +46,12 @@ const _App: React.FC<any> = (props) => {
   const { brand, links } = navigationNotLogged;
   const appState = useSelector<any, any>((state) => state);
 
+  console.log("session u id" + sessionStorage.getItem("USER_ID"));
+
   return (
     <div className="App">
       <Router>
-        {appState.userLogin.user_id === 0 ? (
+        {sessionStorage.getItem("USER_ID") === null ? (
           <NavbarScroller brand={brand} links={links} />
         ) : (
           <NavbarScroller brand={brandLogged} links={linksLogged} />

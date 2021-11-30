@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import "./claims.css";
 import { Covid19Form } from "../covid19/covid19";
 import { IClaim } from "./IClaim";
@@ -14,9 +13,6 @@ import {
   Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-//import { User } from "../../redux/actions";
-
-
 
 const Claims: React.FC<any> = () => {
 
@@ -31,8 +27,6 @@ const Claims: React.FC<any> = () => {
     claimType: "",
     description: ""
   };
-
-
 
   const handleSubmit = async () => {
     newClaim.claimType = claimType;
@@ -53,7 +47,6 @@ const Claims: React.FC<any> = () => {
     console.log("claim: ", res.data);
   };
 
-  
   useEffect(() => {
 
     if (sessionId === "0") {
