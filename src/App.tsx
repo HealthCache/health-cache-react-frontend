@@ -35,6 +35,7 @@ const navigationNotLogged = {
     { name: "Login", to: "/Login" },
     { name: "Register", to: "/Register" },
     { name: "FileClaim", to: "/FileClaim" },
+    { name: "Discussion Board", to: "/Discussion" },
   ],
 };
 
