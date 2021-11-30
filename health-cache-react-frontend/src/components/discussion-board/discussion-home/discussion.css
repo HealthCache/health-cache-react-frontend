@@ -1,5 +1,4 @@
 .subject{
-    border: solid;
     margin-top: 40px;
     width: 70%;
     margin-left: auto;
@@ -8,7 +7,6 @@
 
 .comment{
 
-        border: solid;
         width: 70%;
    
 }

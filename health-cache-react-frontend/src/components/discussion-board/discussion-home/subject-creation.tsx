@@ -85,9 +85,9 @@ export const SubjectCreation : React.FC<any> = () => {
     return (
         <div className = "create-thread">
             
-            <button type = "button"><FaPlusSquare size = {25} onClick={handleShow}/> Create New Thread</button>
+            <button className="bg-primary3 text-primary2 rounded" type = "button"><FaPlusSquare size = {25} onClick={handleShow}/> Create New Thread</button>
             <Modal show={show} onHide={handleClose} size="lg" centered>
-          <ModalHeader>Create new subject</ModalHeader>
+          <ModalHeader className="bg-primary text-primary2">Create new subject</ModalHeader>
             <Container>
             {/*Modal header*/}
             <br/>
@@ -95,7 +95,7 @@ export const SubjectCreation : React.FC<any> = () => {
                 <Col xs={8} id="modal">
                 <ReactQuill 
                     onKeyDown = {countCharacters}
-                    id="textEditor"
+                    className="textEditor"
                     placeholder = "Type your discussion here!"
                     theme='snow'
                     value={convertedText}
@@ -105,17 +105,19 @@ export const SubjectCreation : React.FC<any> = () => {
                 </Col>
                 <Col xs={1} ></Col>
                 <Col xs={3} >
-                    <ul>
+                    <ul className="bg-primary3 text-primary2 textEditor rounded">
                         <li>Rule 1</li>
                         <li>Rule 2</li>
                         <li>Rule 3</li>
                     </ul>
                 </Col>
-            </Row>
-            <ModalFooter>
-            
-            <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-            <Button variant="primary" onClick={createSubjectAsync}>Publish</Button>
+
+     
+            </Row >
+            <ModalFooter >
+            <Button className="bg-primary3 text-primary2 border-primary3" onClick={handleClose}>Cancel</Button>
+            <Button className="bg-primary text-primary2" onClick={createSubjectAsync}>Publish</Button>
+
             
             </ModalFooter>
         </Container>
@@ -126,3 +128,11 @@ export const SubjectCreation : React.FC<any> = () => {
         
     )
 }
+
+/*
+ </Row>
+            <ModalFooter>
+            
+            <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+            <Button variant="primary" onClick={createSubjectAsync}>Publish</Button>
+*/

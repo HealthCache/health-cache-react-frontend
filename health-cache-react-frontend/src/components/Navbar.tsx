@@ -1,5 +1,6 @@
-import * as React from 'react'
-import styled from 'styled-components'
+import * as React from 'react';
+import DarkModeCheckBox from './DarkModeCheckbox';
+import styled from 'styled-components';
 
 const NavbarScroller = (props: {
   brand: { name: string; to: string },
@@ -11,9 +12,10 @@ const NavbarScroller = (props: {
   return (
     <Navbar>
       <Brand href={brand.to}>{brand.name}</Brand>
-      <Ul>
-     <NavLinks/>
-      </Ul>
+
+      <DarkModeCheckBox/>
+
+      <Ul><NavLinks/></Ul>
     </Navbar >
   )
 };

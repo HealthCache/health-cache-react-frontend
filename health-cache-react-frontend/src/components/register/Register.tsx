@@ -84,9 +84,9 @@ export const Register: React.FC<any> = () => {
     return (
         <div className="container pt-5">
 
-            <div className="container bg-white shadow p-3 mb-5 bg-body rounded">
+            <div id="register-container" className="container bg-secondary3 shadow p-3 mb-5 rounded">
 
-                <h1 className="fw-light">Sign up and create a new account</h1>
+                <h1 className="fw-light text-primary2">Sign up and create a new account</h1>
                 <hr />
                 <form>
 
@@ -173,9 +173,9 @@ export const Register: React.FC<any> = () => {
                             <option value="OTHER">OTHER</option>
                         </select>
                     </div>
+                    <hr />
 
-
-                    <button type="submit" className="btn btn-primary btn-block" onClick={signup}>Submit</button>
+                    <button type="submit" className="btn btn-primary text-primary2 btn-block" onClick={signup}>Submit</button>
 
                 </form>
             </div>

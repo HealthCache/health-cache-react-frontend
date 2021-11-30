@@ -3,30 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Subject} from '../../../redux/actions/subjects';
 import { useNavigate } from 'react-router';
 
+
 // import {useHistory} from "react-router";
 
 import {
     Nav,
     Row,
-    CardGroup,
-    Card,
-    Col,
-    Form,
-    Button,
+    //CardGroup,
+   // Card,
+    //Col,
+    //Form,
+    //Button,
     Container,
   } from "react-bootstrap";
 
-import {Discussion, NewThread} from "./discussion-view"
+import {Discussion} from "./discussion-view"
 import { SubjectCreation } from "./subject-creation";
 import { fetchAllSubjects, fetchAllSubjectsByUser } from "../../../redux/actions";
 import {fetchRecentSubjects} from "../../../redux/actions";
-import { fetchById } from '../../../redux/actions';
+//import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
     let usermock = {user_id:89, username:"ImpatientPatient"}; //change calls to usermock to match logedIn user
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
-    let navigate = useNavigate();
+    //let navigate = useNavigate();
     const [url, setUrl] = useState("/Discussion")
     const [activeSelection,SetActiveSelection] = useState('recent');
     const [loaded,setLoaded] = useState(false);
@@ -42,6 +43,7 @@ export const Discussions: React.FC<any> = () => {
 
       useEffect(()=>{
         loadSubjects2();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       },[activeSelection]);
 
       useEffect(()=>{ 
@@ -181,11 +183,15 @@ export const Discussions: React.FC<any> = () => {
                     {
                         appState.subjects.map((itm:any, idx:number) => {
                            return(
+                             <div>
                             <Discussion key={idx} subject={itm}/>
+                            <br/>
+                            </div>
                            );
                         })
                     }
                 </Row>
+
             </Container>
           </div>
           </>
