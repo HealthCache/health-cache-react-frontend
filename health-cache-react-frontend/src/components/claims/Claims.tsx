@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./claims.css";
+import { Covid19Form } from "../covid19/covid19";
 import { IClaim } from "./IClaim";
 import {
   Modal,
@@ -21,6 +22,7 @@ let curUser = sessionStorage.getItem("loggedUser");
 console.log("Current user" + curUser);
 
 const Claims: React.FC<any> = () => {
+
   let state = useSelector((state: any) => state);
   console.log("user_id from state: ", state.userLogin.user_id);
 
@@ -81,6 +83,7 @@ const Claims: React.FC<any> = () => {
 
   return (
     <div className="content">
+      <Covid19Form />
       <div className="header-region">
         <h3 className="page-title"><span>My Claims</span></h3>
         <Button className="dm-btn" variant="dark" onClick={toggleDarkMode}>Dark Mode</Button>

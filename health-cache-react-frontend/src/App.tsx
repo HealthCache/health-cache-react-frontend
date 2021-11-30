@@ -9,6 +9,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Claims from "./components/claims/Claims";
+import { Covid19Form } from "./components/covid19/covid19";
 import { Profile } from "./components/profile/Profile";
 import { Discussions } from "./components/discussion-board/discussion-home/Discussions";
 import { Login } from "./components/login/Login";
@@ -52,6 +53,7 @@ const _App: React.FC<any> = (props) => {
           <NavbarScroller brand={brandLogged} links={linksLogged} />
         )}
         <Routes>
+          <Route path="/Covid" element={<Covid19Form />} />
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
