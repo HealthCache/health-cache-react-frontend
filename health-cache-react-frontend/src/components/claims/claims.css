@@ -109,8 +109,9 @@ tr:nth-child(even) {
 }
 
 #mod-title{ 
-    margin-left: 90px;
+    margin-left: 68px;
     font-size: 2em;
+    color: var(--rev-orange);
 }
 
 .body-dk {
@@ -130,5 +131,15 @@ tr:nth-child(even) {
 }
 
 .container-dg{
-    background-color: var(--rev-dg);
+    background-color: var(--rev-dg) !important;
+    color: white !important;
+}
+
+.container-lg{
+    background-color: var(--rev-lg);
+}
+
+.dark-mode-btn{
+    background-color: var(--rev-dg) !important;
+    color: var(--rev-orange) !important;
 }

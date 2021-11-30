@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -11,39 +10,48 @@ import {
   InputGroup,
   FormControl,
   Form,
-  Button,
-  Row,
-  Col
+  Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { User } from "../../redux/actions";
 
-//test user from state: 
-let curUser = sessionStorage.getItem("loggedUser");
-console.log("Current user" + curUser);
+const getUser = () => {
+  const userStr = sessionStorage.getItem("loggedUser");
+  console.log("userString: ", userStr);
+  if (userStr) 
+  {return JSON.parse(userStr);}
+  else return null;
+}
 
 const Claims: React.FC<any> = () => {
   let state = useSelector((state: any) => state);
+
+  // Get user id from session
   console.log("user_id from state: ", state.userLogin.user_id);
+  
+  //get user id from sessionStorage
+  // Set the user id to either that from state or default to 1
+   let sessionUser = getUser() as User;
+  let sessionId = sessionUser === null? 1: sessionUser.user_id;
+
+
 
   const [show, setShow] = useState(false);
   let [claims, setClaims] = useState([]);
   let [claimType, setClaimType] = useState("");
   let newClaim = {
-    userId: 0,
+    userId: sessionId,
     claimType: "",
     description: ""
   };
 
-  // Set the user id to either that from state or default to 1
-  newClaim.userId = state.userLogin.user_id !== 0 ? state.userLogin.user_id: 1;
+
 
   const handleSubmit = async () => {
     newClaim.claimType = claimType;
     console.log("submitting new claim: ", newClaim);
     try {
-      //let res = await axios.post("http://184.72.201.95:8089/claim/save", newClaim);
       let res = await axios.post("/claim/save", newClaim);
-
       console.log("RESPONSE FROM AXIOS", res);
       fetchClaims();
       handleClose();
@@ -53,7 +61,6 @@ const Claims: React.FC<any> = () => {
   };
 
   const fetchClaims = async () => {
-    //let res = await axios.get(`http://184.72.201.95:8081/claim/byuserid/${newClaim.userId}`);
     let res = await axios.get(`/claim/byuserid/${newClaim.userId}`);
     setClaims(res.data);
     console.log("claim: ", res.data);
@@ -66,9 +73,9 @@ const Claims: React.FC<any> = () => {
       fetchClaims();
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [claimType, newClaim.claimType]); 
 
-  
 
   const handleClose = () => {
     setShow(false);
@@ -77,9 +84,6 @@ const Claims: React.FC<any> = () => {
   }
   const handleShow = () => { setShow(true); }
 
-  const myState = useSelector(state=> state);
-
-  console.log(myState);
 
   return (
     <div className="content">
@@ -98,7 +102,6 @@ const Claims: React.FC<any> = () => {
           <th>Status</th>
         </tr>
         {claims.map((claim: IClaim) => {
-          //console.log("claim: ", claim);
           return (
             <tr key={claim.id}>
               <td>{claim.id}</td>
@@ -112,9 +115,9 @@ const Claims: React.FC<any> = () => {
       </table>
 
       <Modal show={show}>
-        <ModalHeader className="center-text max-width"><span id="mod-title">Create New Claim</span></ModalHeader>
-            <ModalBody className="modal-body">
-            <Form className="modal-form">
+        <ModalHeader id="claim-container" className="center-text container-lg max-width"><span id="mod-title">Create New Claim</span></ModalHeader>
+            <ModalBody className="modal-body container-lg">
+            <Form className="modal-form container-lg">
               <InputGroup className="mb-3">
                 <DropdownButton
                   title="Claim Type"
@@ -135,7 +138,7 @@ const Claims: React.FC<any> = () => {
                   <Dropdown.Item eventKey="EMERGENCY">EMERGENCY</Dropdown.Item>
                   <Dropdown.Item eventKey="OTHER">OTHER</Dropdown.Item>
                 </DropdownButton>
-                 <h4 id="dropdown-text">{claimType}</h4>
+                 <h4 className="text-black" id="dropdown-text">{claimType}</h4>
               </InputGroup>
               <InputGroup>
                 <InputGroup.Text>Description</InputGroup.Text>
@@ -150,7 +153,7 @@ const Claims: React.FC<any> = () => {
               </InputGroup>
               </Form>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter className="container-lg">
               <button className="rev-btn border-primary rounded" type="button" onClick={handleSubmit}>
                 Submit
               </button>

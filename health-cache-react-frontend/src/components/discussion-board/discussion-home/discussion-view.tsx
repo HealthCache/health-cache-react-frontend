@@ -35,17 +35,17 @@ export const Discussion:React.FC<any> = ({subject}) => {
     }
 
     return(
-        <div className = "subject shadow bg-primary2">
-        <div className="subject-container">
+        <div className="subject shadow bg-secondary3">
+        <div className="subject-container text-black">
             <div className="subject-profile">
-                <img className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="50" height="50"/>
+                <img alt="profile-img" className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="50" height="50"/>
                 <h3 className="subject-username text-primary"><strong>User: {subject.username.username}</strong></h3>
             </div>
 
-            <div className="subject-content text-primary3">
+            <div className="subject-content text-black text-primary3">
                 <div dangerouslySetInnerHTML={displayContent(subject.content)}></div>
             </div>
-            <p className = "subject-date text-primary3">  <FaCalendarAlt className="text-primary" size = {18}/>    {new Date(subject.timestamp).toDateString()} {new Date(subject.timestamp).toLocaleTimeString()}</p>
+            <p className = "subject-date overflow-wrap text-black text-wrap text-primary3">  <FaCalendarAlt className="text-primary" size = {18}/>    {new Date(subject.timestamp).toDateString()} {new Date(subject.timestamp).toLocaleTimeString()}</p>
             </div>
         <div className = "subject-comment ">
             <button type="button" onClick = {LoadDiscussion}><FaCommentDots className="text-primary" size = {45}/></button>

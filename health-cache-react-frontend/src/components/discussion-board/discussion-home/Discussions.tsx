@@ -9,25 +9,25 @@ import { useNavigate } from 'react-router';
 import {
     Nav,
     Row,
-    CardGroup,
-    Card,
-    Col,
-    Form,
-    Button,
+    //CardGroup,
+   // Card,
+    //Col,
+    //Form,
+    //Button,
     Container,
   } from "react-bootstrap";
 
-import {Discussion, NewThread} from "./discussion-view"
+import {Discussion} from "./discussion-view"
 import { SubjectCreation } from "./subject-creation";
 import { fetchAllSubjects, fetchAllSubjectsByUser } from "../../../redux/actions";
 import {fetchRecentSubjects} from "../../../redux/actions";
-import { fetchById } from '../../../redux/actions';
+//import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
     let usermock = {user_id:46, username:"Virut"};
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
-    let navigate = useNavigate();
+    //let navigate = useNavigate();
     const [url, setUrl] = useState("/Discussion")
     const [activeSelection,SetActiveSelection] = useState('recent');
     const appState = useSelector<any, any>((state) => state);
@@ -40,6 +40,7 @@ export const Discussions: React.FC<any> = () => {
 
       useEffect(()=>{
         loadSubjects2();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       },[activeSelection]);
 
       useEffect(()=>{ 

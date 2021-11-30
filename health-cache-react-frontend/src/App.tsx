@@ -1,19 +1,19 @@
-import React, { Component, useEffect, useState } from "react";
+//import React, { Component, useEffect, useState } from "react";
 import "reset-css";
 import NavbarScroller from "./components/Navbar";
 import {
   BrowserRouter as Router,
-  Navigate,
+  //Navigate,
   Route,
   Routes,
-  useNavigate,
+  //useNavigate,
 } from "react-router-dom";
 import Claims from "./components/claims/Claims";
 import { Profile } from "./components/profile/Profile";
 import { Discussions } from "./components/discussion-board/discussion-home/Discussions";
 import { Login } from "./components/login/Login";
 import { Register } from "./components/register/Register";
-import { logoutUser, User } from "./redux/actions";
+import { User } from "./redux/actions";
 import { StoreState } from "./redux/reducers";
 import { connect, useSelector } from "react-redux";
 import { Logout } from "./components/login/Logout";

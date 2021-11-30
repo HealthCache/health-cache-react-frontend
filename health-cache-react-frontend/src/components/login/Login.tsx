@@ -38,9 +38,9 @@ export const Login: React.FC<any> = () => {
     }
 
     return (
-        <div id="login-container" className="container pt-5">
+        <div className="container pt-5">
 
-            <div className="container shadow p-3 mb-5 bg-secondary3 text-black rounded ">
+            <div id="login-container" className="container shadow p-3 mb-5 bg-secondary3 text-black rounded">
 
                 <h1 className="fw-light text-primary2">Login to your account</h1>
                 <hr />
