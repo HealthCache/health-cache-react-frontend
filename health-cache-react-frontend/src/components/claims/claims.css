@@ -59,10 +59,8 @@ hr {
 
 table {
     border: 2px solid var(--rev-dg);
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 80%;
-    
+    width: 90%;
+    margin: 0 auto;
 }
 
 table tr th, table tr td {
@@ -141,4 +139,8 @@ tr:nth-child(even) {
 
 .orange-text {
     color: var(--rev-orange) !important;
+}
+
+.white-text {
+    color: white !important;
 }

@@ -45,7 +45,7 @@ const DarkModeCheckBox: React.FC<any> = () => {
 
         document.getElementById("table-container")?.classList.add("container-dg");
         document.getElementById("table-container")?.classList.remove("bg-secondary3");
-        document.getElementById("table-container")?.classList.add("orange-text");
+        document.getElementById("table-container")?.classList.add("white-text");
 
         //container-lg
         let modalDivs = document.getElementsByClassName("container-lg");
@@ -87,7 +87,7 @@ const DarkModeCheckBox: React.FC<any> = () => {
         //container-lg - file a claim - table-container
           document.getElementById("table-container")?.classList.remove("container-dg");
           document.getElementById("table-container")?.classList.add("bg-secondary3");
-          document.getElementById("table-container")?.classList.remove("orange-text");
+          document.getElementById("table-container")?.classList.remove("white-text");
 
         let modalDivs = document.getElementsByClassName("container-dg");
         Array.from(modalDivs).forEach(d => {
