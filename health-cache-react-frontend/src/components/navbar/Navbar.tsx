@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
 
 
 const NavbarScroller = (props: {
@@ -14,14 +13,6 @@ const NavbarScroller = (props: {
 
 
   const navigate = useNavigate();
-
-  let sessionUserId = sessionStorage.getItem("USER_ID");
-  const [userId, setUserId] = useState(sessionUserId);
-
-  useEffect(() => {
-    console.log("sessionUserId: " + sessionUserId);
-
-  }, [userId, sessionUserId])
 
   return (
     <Navbar>

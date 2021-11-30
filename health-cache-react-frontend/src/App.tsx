@@ -36,7 +36,7 @@ const navigationNotLogged = {
   links: [
     { name: "Login", to: "/Login" },
     { name: "Register", to: "/Register" },
-    //{ name: "FileClaim", to: "/FileClaim" },
+    { name: "FileClaim", to: "/FileClaim" },
     { name: "Discussion Board", to: "/Discussion" },
   ],
 };
