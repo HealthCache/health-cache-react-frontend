@@ -35,13 +35,13 @@ export const Discussion:React.FC<any> = ({subject}) => {
     }
 
     return(
-        <div className="subject shadow bg-secondary3">
+        <>
+        <div className="subject shadow bg-secondary3 rounded">
         <div className="subject-container text-black">
             <div className="subject-profile">
                 <img alt="profile-img" className="subject-image" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" width="50" height="50"/>
                 <h3 className="subject-username text-primary"><strong>User: {subject.username.username}</strong></h3>
             </div>
-
             <div className="subject-content text-black text-primary3">
                 <div dangerouslySetInnerHTML={displayContent(subject.content)}></div>
             </div>
@@ -57,6 +57,8 @@ export const Discussion:React.FC<any> = ({subject}) => {
             <p>{subject.votes.length}</p>
         </div>
         </div>
+        <hr/>
+        </>
     );
 }
 
