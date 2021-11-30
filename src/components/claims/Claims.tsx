@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import "./claims.css";
+import { Covid19Form } from "../covid19/covid19";
 import { IClaim } from "./IClaim";
 import {
   Modal,
@@ -13,28 +13,11 @@ import {
   Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { User } from "../../redux/actions";
-
-const getUser = () => {
-  const userStr = sessionStorage.getItem("loggedUser");
-  console.log("userString: ", userStr);
-  if (userStr) 
-  {return JSON.parse(userStr);}
-  else return null;
-}
 
 const Claims: React.FC<any> = () => {
-  let state = useSelector((state: any) => state);
 
-  // Get user id from session
-  console.log("user_id from state: ", state.userLogin.user_id);
-  
-  //get user id from sessionStorage
-  // Set the user id to either that from state or default to 1
-   let sessionUser = getUser() as User;
-  let sessionId = sessionUser === null? 1: sessionUser.user_id;
-
-
+  console.log("user-id: " + sessionStorage.getItem("USER_ID"));
+  let sessionId = sessionStorage.getItem("USER_ID");
 
   const [show, setShow] = useState(false);
   let [claims, setClaims] = useState([]);
@@ -44,8 +27,6 @@ const Claims: React.FC<any> = () => {
     claimType: "",
     description: ""
   };
-
-
 
   const handleSubmit = async () => {
     newClaim.claimType = claimType;
@@ -66,8 +47,13 @@ const Claims: React.FC<any> = () => {
     console.log("claim: ", res.data);
   };
 
-  
   useEffect(() => {
+
+    if (sessionId === "0") {
+      // @ts-ignore
+      navigate("/login");
+  }
+
     if (claimType === "")
     {
       fetchClaims();
@@ -87,6 +73,7 @@ const Claims: React.FC<any> = () => {
 
   return (
     <div className="content">
+      <Covid19Form />
       <div className="header-region">
         <h3 className="page-title"><span>File a Claim</span></h3>
         <Button className="rev-btn btn-primary text-primary2" size="sm" variant="secondary" onClick={handleShow}>New Claim</Button>
@@ -121,7 +108,7 @@ const Claims: React.FC<any> = () => {
 
       <hr />
 
-      
+
       </div>
 
       <Modal show={show}>
