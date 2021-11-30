@@ -82,6 +82,11 @@ const _Profile: React.FC<ProfileProps> = (props) => {
     return (
         <section>
             <div id="profile-container" className="container text-black rounded bg-secondary3 rounded mt-5 mb-5 text-primary3">
+
+        <h1 className="fw-light text-primary2">Profile</h1>
+
+        <hr />
+
                 <div className="row">
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img
@@ -277,6 +282,9 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                                 </section>}
                         </div>
                     </div>
+
+                    <hr/>
+                    <br/>
                 </div>
             </div>
         </section>
