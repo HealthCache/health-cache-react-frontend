@@ -1,12 +1,12 @@
-import React, { Component, useEffect, useState } from "react";
+//import React, { Component, useEffect, useState } from "react";
 import "reset-css";
 import NavbarScroller from "./components/Navbar";
 import {
   BrowserRouter as Router,
-  Navigate,
+  //Navigate,
   Route,
   Routes,
-  useNavigate,
+  //useNavigate,
 } from "react-router-dom";
 import Claims from "./components/claims/Claims";
 import { Covid19Form } from "./components/covid19/covid19";
@@ -14,11 +14,12 @@ import { Profile } from "./components/profile/Profile";
 import { Discussions } from "./components/discussion-board/discussion-home/Discussions";
 import { Login } from "./components/login/Login";
 import { Register } from "./components/register/Register";
-import { logoutUser, User } from "./redux/actions";
+import { User } from "./redux/actions";
 import { StoreState } from "./redux/reducers";
 import { connect, useSelector } from "react-redux";
 import { Logout } from "./components/login/Logout";
 import { CommentThread } from "./components/discussion-board/discussion-home/comments-subject";
+import './colors.scss';
 
 const navigationLogged = {
   brandLogged: { name: "HealthCache", to: "/" },
@@ -36,6 +37,7 @@ const navigationNotLogged = {
     { name: "Login", to: "/Login" },
     { name: "Register", to: "/Register" },
     { name: "FileClaim", to: "/FileClaim" },
+    { name: "Discussion Board", to: "/Discussion" },
   ],
 };
 
@@ -61,7 +63,8 @@ const _App: React.FC<any> = (props) => {
           <Route path="/FileClaim" element={<Claims />} />
           <Route path="/Discussion" element={<Discussions />} />
           <Route path="/Logout" element={<Logout />} />
-          <Route path="/DiscussionView" element={<CommentThread />} />
+          <Route path = "/DiscussionView" element={<CommentThread />} />
+          <Route path="/Recent" element={<Discussions />} />
         </Routes>
       </Router>
     </div>
