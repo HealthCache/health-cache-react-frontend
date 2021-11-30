@@ -173,7 +173,7 @@ export const Register: React.FC<any> = () => {
                             <option value="OTHER">OTHER</option>
                         </select>
                     </div>
-
+                    <hr />
 
                     <button type="submit" className="btn btn-primary text-primary2 btn-block" onClick={signup}>Submit</button>
 
