@@ -74,8 +74,8 @@ export const SubjectCreation : React.FC<any> = () => {
               
               content:deleteSpaces(convertedText),
               timestamp:date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours()+5) + ':' + date.getMinutes() + ':' + date.getSeconds(),
-              user_id:89, //This should be the logged in user info
-              username:"ImpatientPatient"
+              user_id:Number(sessionStorage.getItem("USER_ID")), //This should be the logged in user info
+              username:sessionStorage.getItem("USERNAME") + ""
           
           })
         );

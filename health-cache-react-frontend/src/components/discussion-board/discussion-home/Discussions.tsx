@@ -24,7 +24,7 @@ import {fetchRecentSubjects} from "../../../redux/actions";
 //import { fetchById } from '../../../redux/actions';
 
 export const Discussions: React.FC<any> = () => {
-    let usermock = {user_id:89, username:"ImpatientPatient"}; //change calls to usermock to match logedIn user
+    //let usermock = {user_id:sessionStorage.getItem("USER_ID"), username:sessionStorage.getItem("USER_ID")}; //change calls to usermock to match logedIn user
     //const [search, setSearch] = useState("");
     const dispatch = useDispatch();
     //let navigate = useNavigate();
@@ -47,8 +47,8 @@ export const Discussions: React.FC<any> = () => {
       },[activeSelection]);
 
       useEffect(()=>{ 
-        console.log(appState);
-          if(usermock.user_id < 0)
+        console.log('im the sessionstore'+sessionStorage.getItem("USER_ID"));
+          if(sessionStorage.getItem("USER_ID") !== null)
             SetActiveSelection('your');
           else
             SetActiveSelection('recent');
@@ -96,7 +96,7 @@ export const Discussions: React.FC<any> = () => {
       const loadSubjects2 = async () => {
         if(activeSelection==='your')
           await dispatch(
-            fetchAllSubjectsByUser(usermock.user_id)            
+            fetchAllSubjectsByUser(Number(sessionStorage.getItem("USER_ID")))            
           );
         else
           await dispatch(
@@ -132,7 +132,7 @@ export const Discussions: React.FC<any> = () => {
 
       function YourDiscussionsOption() {
         
-        if(usermock.user_id > 0){
+        if(sessionStorage.getItem("USER_ID") !== null){
           return (
               <Nav.Item onClick={toDiscussion}>
                 <Nav.Link  className={activeSelection==='your'?'active':''}>Your Discussions</Nav.Link>
@@ -157,7 +157,8 @@ export const Discussions: React.FC<any> = () => {
     }
     */
       function renderCreateOption () {
-        if(appState.userLogin.user_id!==0) //change to === to check logedIn user in appstate
+        if(sessionStorage.getItem("USER_ID")===null) //change to === to check logedIn user in appstate
+        
           return(<></>);
         else 
           return(<SubjectCreation />);

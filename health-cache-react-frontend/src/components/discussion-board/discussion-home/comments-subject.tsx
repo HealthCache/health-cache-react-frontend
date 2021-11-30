@@ -30,7 +30,7 @@ export const CommentThread : React.FC<any> = () => {
       },[appState]);
 
       function renderCreateOption () {
-        if(appState.userLogin.user_id!==0) //change to === to check logedIn user in appstate
+        if(sessionStorage.getItem("USER_ID") === null) //change to === to check logedIn user in appstate
           return(<></>);
         else 
           return(<CommentEditor id={appState.singleSubject.id}/>);

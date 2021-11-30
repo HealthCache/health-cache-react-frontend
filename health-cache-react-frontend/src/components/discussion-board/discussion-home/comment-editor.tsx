@@ -73,8 +73,8 @@ export const CommentEditor : React.FC<any> = (props) => {
               content:deleteSpaces(convertedText),
               timestamp:date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours()+5) + ':' + date.getMinutes() + ':' + date.getSeconds(),
               subject_id: props.id,
-              user_id:12, //This should be the logged in user info
-              username:"Commentor"
+              user_id:Number(sessionStorage.getItem("USER_ID")), //This should be the logged in user info
+              username:sessionStorage.getItem("USERNAME") + ""
           
           })
         );
