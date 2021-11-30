@@ -49,15 +49,17 @@ const _Profile: React.FC<ProfileProps> = (props) => {
         }
     }
 
-
+    let sessionUserId = sessionStorage.getItem("USER_ID");
 
     useEffect(() => {
         console.log(appState)
-        if (appState.userLogin.user_id === 0) {
+
+        if (sessionUserId === null) {
             // @ts-ignore
             navigate("/login");
         }
         console.log(appState.userLogin)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editMode]);
 
     const imageHandler = async (e: any) => {
@@ -83,7 +85,7 @@ const _Profile: React.FC<ProfileProps> = (props) => {
                 <div className="row">
                     <div className="col-md-3 border-right">
                         <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                            className="rounded-circle mt-5" width="150px"
+                            className="rounded-circle mt-5" width="150px" alt="profile-pic"
                             src={renderPic()} />
                             <span
                                 className="font-weight-bold">{firstName}</span><span

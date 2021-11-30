@@ -13,11 +13,17 @@ import {
   Button
 } from "react-bootstrap";
 import { ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useNavigate } from "react-router";
 
 const Claims: React.FC<any> = () => {
 
-  console.log("user-id: " + sessionStorage.getItem("USER_ID"));
+  const navigate = useNavigate();
+
+  // Get the user id from sessionStorage
   let sessionId = sessionStorage.getItem("USER_ID");
+  console.log("user-id: " + sessionId);
+  
 
   const [show, setShow] = useState(false);
   let [claims, setClaims] = useState([]);
@@ -49,11 +55,13 @@ const Claims: React.FC<any> = () => {
 
   useEffect(() => {
 
-    if (sessionId === "0") {
+    // Navigate back to the login if the session is clear
+    if (sessionId === null) {
       // @ts-ignore
       navigate("/login");
-  }
+    }
 
+    // Get the claims for user id available
     if (claimType === "")
     {
       fetchClaims();
@@ -63,11 +71,14 @@ const Claims: React.FC<any> = () => {
   }, [claimType, newClaim.claimType]); 
 
 
+  // Close the New Claim modal
   const handleClose = () => {
     setShow(false);
     newClaim.claimType="";
     setClaimType("");
   }
+
+  // Show the New Claim modal
   const handleShow = () => { setShow(true); }
 
 
@@ -83,6 +94,7 @@ const Claims: React.FC<any> = () => {
 
       <div id="table-container" className="container shadow p-3 mb-5 bg-secondary3 rounded">
       <h1 className="fw-light text-primary2">My Claims</h1>
+
       <hr />
 
       <table>
@@ -107,7 +119,6 @@ const Claims: React.FC<any> = () => {
       </table>
 
       <hr />
-
 
       </div>
 
@@ -164,4 +175,5 @@ const Claims: React.FC<any> = () => {
     </div>
   );
 };
+
 export default Claims;
