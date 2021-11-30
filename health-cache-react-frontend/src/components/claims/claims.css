@@ -71,15 +71,11 @@ table tr th, table tr td {
 }
 
 tr:nth-child(even) {
-    background-color: var(--rev-lg);
+    background-color: white;
     color: black;
 }
 
 .rev-btn {
-    border: 2px solid var(--rev-orange);
-    border-radius: 20px !important;
-    padding: 0em 1em;
-    font-family: 'Futura Std Medium', sans-serif;
     color: white;
     background-color: var(--rev-orange) !important;
     margin-right: 10%;
@@ -87,7 +83,6 @@ tr:nth-child(even) {
 }
 
 .rev-btn:hover {
-    
     background-color: white;
 }
 
@@ -141,5 +136,9 @@ tr:nth-child(even) {
 
 .dark-mode-btn{
     background-color: var(--rev-dg) !important;
+    color: var(--rev-orange) !important;
+}
+
+.orange-text {
     color: var(--rev-orange) !important;
 }

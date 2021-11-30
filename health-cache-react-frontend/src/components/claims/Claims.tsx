@@ -89,10 +89,13 @@ const Claims: React.FC<any> = () => {
     <div className="content">
       <div className="header-region">
         <h3 className="page-title"><span>My Claims</span></h3>
-        <Button className="rev-btn" variant="secondary" onClick={handleShow}>New Claim</Button>
+        <Button className="rev-btn btn-primary text-primary2" size="sm" variant="secondary" onClick={handleShow}>New Claim</Button>
       </div>
       
       <hr />
+
+      <div id="table-container" className="container shadow p-3 mb-5 bg-secondary3 rounded">
+
       <table>
         <tbody>
         <tr>
@@ -113,9 +116,11 @@ const Claims: React.FC<any> = () => {
         })}
         </tbody>
       </table>
+      </div>
 
       <Modal show={show}>
-        <ModalHeader id="claim-container" className="center-text container-lg max-width"><span id="mod-title">Create New Claim</span></ModalHeader>
+        <ModalHeader id="claim-container" className="center-text container-lg max-width">
+          <span id="mod-title">Create New Claim</span></ModalHeader>
             <ModalBody className="modal-body container-lg">
             <Form className="modal-form container-lg">
               <InputGroup className="mb-3">

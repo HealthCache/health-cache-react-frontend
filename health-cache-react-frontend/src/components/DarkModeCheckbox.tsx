@@ -42,6 +42,11 @@ const DarkModeCheckBox: React.FC<any> = () => {
       } catch(e){console.log(e);}
 
       try {
+
+        document.getElementById("table-container")?.classList.add("container-dg");
+        document.getElementById("table-container")?.classList.remove("bg-secondary3");
+        document.getElementById("table-container")?.classList.add("orange-text");
+
         //container-lg
         let modalDivs = document.getElementsByClassName("container-lg");
         console.log(modalDivs);
@@ -79,7 +84,11 @@ const DarkModeCheckBox: React.FC<any> = () => {
         } catch(e){console.log(e);}
 
         try {
-        //container-lg
+        //container-lg - file a claim - table-container
+          document.getElementById("table-container")?.classList.remove("container-dg");
+          document.getElementById("table-container")?.classList.add("bg-secondary3");
+          document.getElementById("table-container")?.classList.remove("orange-text");
+
         let modalDivs = document.getElementsByClassName("container-dg");
         Array.from(modalDivs).forEach(d => {
         d.classList.remove("container-dg");
