@@ -1,0 +1,25 @@
+.headerBar {
+    background-color: #72A4C2;
+    border-radius: 4%;
+    width:200px;
+    height: 120px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+h2 {
+    font-family: Futura;
+}
+
+.covid19Body{
+    margin-top: 20px;
+}
+
+.primary{
+    background-color: #72A4C2;
+    border-radius: 7%;
+}
+
+.secondary{
+    border-radius: 7%;
+}

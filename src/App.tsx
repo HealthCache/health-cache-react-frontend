@@ -9,6 +9,7 @@ import {
   //useNavigate,
 } from "react-router-dom";
 import Claims from "./components/claims/Claims";
+import { Covid19Form } from "./components/covid19/covid19";
 import { Profile } from "./components/profile/Profile";
 import { Discussions } from "./components/discussion-board/discussion-home/Discussions";
 import { Login } from "./components/Login/Login";
@@ -45,15 +46,18 @@ const _App: React.FC<any> = (props) => {
   const { brand, links } = navigationNotLogged;
   const appState = useSelector<any, any>((state) => state);
 
+  console.log("session u id" + sessionStorage.getItem("USER_ID"));
+
   return (
     <div className="App">
       <Router>
-        {appState.userLogin.user_id === 0 ? (
+        {sessionStorage.getItem("USER_ID") === null ? (
           <NavbarScroller brand={brand} links={links} />
         ) : (
           <NavbarScroller brand={brandLogged} links={linksLogged} />
         )}
         <Routes>
+          <Route path="/Covid" element={<Covid19Form />} />
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
