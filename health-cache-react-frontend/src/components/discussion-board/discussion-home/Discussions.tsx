@@ -49,7 +49,7 @@ export const Discussions: React.FC<any> = () => {
       useEffect(()=>{ 
         console.log('im the sessionstore'+sessionStorage.getItem("USER_ID"));
           if(sessionStorage.getItem("USER_ID") !== null)
-            SetActiveSelection('your');
+            SetActiveSelection('recent');
           else
             SetActiveSelection('recent');
       }, []);
