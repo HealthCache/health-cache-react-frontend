@@ -45,7 +45,7 @@ export const Discussion:React.FC<any> = ({subject}) => {
             <div className="subject-content text-black text-primary3">
                 <div dangerouslySetInnerHTML={displayContent(subject.content)}></div>
             </div>
-            <p className = "subject-date overflow-wrap text-black text-wrap text-primary3">  <FaCalendarAlt className="text-primary" size = {18}/>    {new Date(subject.timestamp).toDateString()} {new Date(subject.timestamp).toLocaleTimeString()}</p>
+            <p className = "subject-date overflow-wrap text-black text-wrap text-primary3">  <FaCalendarAlt className="text-primary" size = {18}/>{new Date(subject.timestamp).toDateString()}</p>
             </div>
         <div className = "subject-comment ">
             <button type="button" onClick = {LoadDiscussion}><FaCommentDots className="text-primary" size = {45}/></button>

@@ -88,7 +88,7 @@ export const Comment : React.FC<any> = (message:any) => {
             <div className="subject-content">
                 <div dangerouslySetInnerHTML={displayContent(message.subject.content)}></div>
             </div>
-            <p className = "subject-date">  <FaCalendarAlt size = {18}/>    {new Date(message.subject.timestamp).toDateString()} </p>
+            <p className = "subject-date">  <FaCalendarAlt size = {18}/> {(message.subject.timestamp.split('T')[0])} </p>
         </div>
         </div>
     );
@@ -139,7 +139,7 @@ const handleLike = () => {
         <div dangerouslySetInnerHTML={displayContent(appState.singleSubject.content)}></div>
     </Row>
     </Col>
-    <Col className="text-primary3" xs={4}> <FaCalendarAlt className="text-primary" /> {appState.singleSubject.timestamp}
+    <Col className="text-primary3" xs={4}> <FaCalendarAlt className="text-primary" />{new Date(appState.singleSubject.timestamp).toDateString()}
     
     <Row>
         <Col xs = {3}>
