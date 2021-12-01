@@ -105,10 +105,10 @@ export const SubjectCreation : React.FC<any> = () => {
                 </Col>
                 <Col xs={1} ></Col>
                 <Col xs={3} >
-                    <ul className="bg-primary3 text-primary2 rounded">
-                        <li>Rule 1</li>
-                        <li>Rule 2</li>
-                        <li>Rule 3</li>
+                    <ul className="bg-primary3 text-primary2 textEditor rounded">
+                        <li>Public Forum</li>
+                        <li>Be Respectful</li>
+                        <li>Thank you!</li>
                     </ul>
                 </Col>
 
