@@ -12,14 +12,14 @@ import Claims from "./components/claims/Claims";
 import { Covid19Form } from "./components/covid19/covid19";
 import { Profile } from "./components/profile/Profile";
 import { Discussions } from "./components/discussion-board/discussion-home/Discussions";
-import { Login } from "./components/Login/Login";
+import { Login } from "./components/login/Login";
 import { Register } from "./components/register/Register";
 import { User } from "./redux/actions";
 import { StoreState } from "./redux/reducers";
 import { connect, useSelector } from "react-redux";
-import { Logout } from "./components/Login/Logout";
+import { Logout } from "./components/login/Logout";
 import { CommentThread } from "./components/discussion-board/discussion-home/comments-subject";
-import './colors.scss';
+import "./colors.scss";
 
 const navigationLogged = {
   brandLogged: { name: "HealthCache", to: "/" },
@@ -65,7 +65,7 @@ const _App: React.FC<any> = (props) => {
           <Route path="/FileClaim" element={<Claims />} />
           <Route path="/Discussion" element={<Discussions />} />
           <Route path="/Logout" element={<Logout />} />
-          <Route path = "/DiscussionView" element={<CommentThread />} />
+          <Route path="/DiscussionView" element={<CommentThread />} />
           <Route path="/Recent" element={<Discussions />} />
         </Routes>
       </Router>
