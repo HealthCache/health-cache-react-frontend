@@ -1,51 +1,64 @@
 # HealthCache
-Here goes your awesome project description!
 
-Technologies Used
+A healthcare insurance application for employees/patients to access information and carry out business related procedures. 
 
-    Tech 1 - version 1.0
-    Tech 2 - version 2.0
-    Tech 3 - version 3.0
+## Technologies Used
 
-Features
+### Backend
+- Java 8
+- JUnit
+- Mockito
+- Spring Boot
+- PostgreSQL
+- Hibernate
+- H2 Database
 
-List of features ready and TODOs for future development
+![](https://github.com/HealthCache/health-cache-java-backend/blob/main/Resource/ERD.png)
 
-    Awesome feature 1
-    Awesome feature 2
-    Awesome feature 3
+### Microservice Architecture
+- Spring Cloud Gateway
+- Netflix Eureka
 
-To-do list:
+![](https://github.com/HealthCache/health-cache-java-backend/blob/main/Resource/Arch.png)
 
-    Wow improvement to be done 1
-    Wow improvement to be done 2
+### Frontend
+- NodeJs
+- React
+- Axios
+- React Redux
+- TypeScript
+- React Router DOM
+- React Bootstrap
+- React Quill
 
-Getting Started
+### DevOps
+- Jenkins
+- GitHub Actions
+- Amazon EC2
+- Amazon S3
 
-(include git clone command) (include all environment setup steps)
+## Features
 
-    Be sure to include BOTH Windows and Unix command
-    Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
+### Users can...
+- Register new accounts
+- Login/Logout of existing accounts
+- View existing profile info
+- Update profile info
+- Submit claims
+- View existing claims 
+- Post new threads to discussion board 
+- Respond to existing thread
 
-    All the code required to get started
-    Images of what it should look like
+### Coming Soon...
+- Tech support live chat
+- Employees approve/deny claims
+- Exporting insurance cards
+- Ticketing system for claims
+- Upvoting/Flagging discussion threads
 
-Usage
 
-    Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
+Contributors:
 
-Contributors
-
-    Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-
-License
-
-This project uses the following license: <license_name>.
-About
-No description, website, or topics provided.
-Resources
-Readme
-Releases
-No releases published
-Packages
-No packages published 
+Resources:
+readme.md
+startup.md
